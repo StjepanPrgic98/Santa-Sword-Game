@@ -5,11 +5,11 @@ public class PresentField : MonoBehaviour
     [Header("References")]
     [SerializeField] GameObject present;
 
-
-    float rotationSpeed = 50f;
-    int numberOfObjects = 10;
-    float circleRadius = 2f;
-    Vector3 scale = new Vector3(0.1f, 0.1f, 1);
+    [Header("Variables")]
+    [SerializeField] float rotationSpeed = 50f;
+    [SerializeField] int numberOfPresents = 15;
+    [SerializeField] float circleRadius = 1f;
+    [SerializeField] Vector3 presentScale = new Vector3(0.1f, 0.1f, 1);
 
     void Start()
     {
@@ -23,9 +23,9 @@ public class PresentField : MonoBehaviour
 
     void ArrangeObjects()
     {
-        for (int i = 0; i < numberOfObjects; i++)
+        for (int i = 0; i < numberOfPresents; i++)
         {
-            float angle = i * (360f / numberOfObjects);
+            float angle = i * (360f / numberOfPresents);
             float radians = Mathf.Deg2Rad * angle;
 
             float x = transform.position.x + circleRadius * Mathf.Cos(radians);
@@ -36,7 +36,7 @@ public class PresentField : MonoBehaviour
             GameObject newObject = Instantiate(present, newPosition, Quaternion.identity);
             newObject.transform.parent = transform; 
 
-            newObject.transform.localScale = scale;
+            newObject.transform.localScale = presentScale;
         }
     }
 }

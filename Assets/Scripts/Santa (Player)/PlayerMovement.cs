@@ -8,10 +8,13 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] Rigidbody2D rigidBody;
+    [SerializeField] Animator animator;
 
-    
+    [Header("Variables")]
+    [SerializeField] float moveSpeed = 5;
+
+
     Vector2 moveInput;
-    float moveSpeed = 5;
 
     void Update()
     {
@@ -30,6 +33,20 @@ public class PlayerMovement : MonoBehaviour
         if (playerIsMoving)
         {
             transform.localScale = new Vector2(Mathf.Sign(rigidBody.velocity.x), 1f);
+        }
+
+        TriggerWalkingAnimation(rigidBody.velocity);
+    }
+
+    void TriggerWalkingAnimation(Vector3 playerVelocity)
+    {
+        if(playerVelocity.x == 0 && playerVelocity.y == 0)
+        {
+            animator.SetBool("isWalking", false);
+        }
+        if(playerVelocity.x != 0 ||playerVelocity.y != 0)
+        {
+            animator.SetBool("isWalking", true);
         }
     }
     void OnMove(InputValue value)
