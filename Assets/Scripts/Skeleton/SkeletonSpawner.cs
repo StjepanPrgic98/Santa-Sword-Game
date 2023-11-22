@@ -9,6 +9,7 @@ public class SkeletonSpawner : MonoBehaviour
     int cycle = 1;
     int baseNumberOfBats = 2;
     float baseRotationSpeed = 50;
+
     private void Start()
     {
         SpawnSkeleton();
@@ -34,6 +35,7 @@ public class SkeletonSpawner : MonoBehaviour
         SkeletonField skeletonField = skeletonObject.GetComponentInChildren<SkeletonField>();
         skeletonField.SetNumberOfBatsOnSpawn(CalculateNumberOfBatsToSpawn()); 
         skeletonField.SetBatRotationSpeedOnSpawn(CalculateRotationSpeed());
+        skeletonField.SetLevelOfBatsOnSpawn(CalculateBatLevel());
 
         cycle++;
         SpawnSkeleton();
@@ -46,5 +48,9 @@ public class SkeletonSpawner : MonoBehaviour
     float CalculateRotationSpeed()
     {
         return baseRotationSpeed + (baseRotationSpeed * 0.2f * cycle);
+    }
+    int CalculateBatLevel()
+    {
+        return Random.Range(cycle-1, cycle+1);
     }
 }

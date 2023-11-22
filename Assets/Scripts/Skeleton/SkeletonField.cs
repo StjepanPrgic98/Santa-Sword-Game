@@ -1,15 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SkeletonField : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] GameObject bat;
+    [SerializeField] List<GameObject> bats;
 
     [Header("Variables")]
     [SerializeField] float rotationSpeed = 50f;
     [SerializeField] int numberOfBats = 15;
-    [SerializeField] Vector3 batScale = new Vector3(1f, 1f, 1);
     [SerializeField] float initialCircleRadius = 2f;
+
+    int level = 0;
 
     void Start()
     {
@@ -33,10 +35,8 @@ public class SkeletonField : MonoBehaviour
 
             Vector3 newPosition = new Vector3(x, y, transform.position.z);
 
-            GameObject newObject = Instantiate(bat, newPosition, Quaternion.identity);
+            GameObject newObject = Instantiate(bats[level], newPosition, Quaternion.identity);
             newObject.transform.parent = transform;
-
-            newObject.transform.localScale = batScale;
         }
     }
 
@@ -47,5 +47,10 @@ public class SkeletonField : MonoBehaviour
     public void SetBatRotationSpeedOnSpawn(float rotationS)
     {
         rotationSpeed = rotationS;
+    }
+    public void SetLevelOfBatsOnSpawn(int batLevel)
+    {
+        if(batLevel > 5) { batLevel = 5; }
+        level = batLevel;
     }
 }

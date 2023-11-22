@@ -97,7 +97,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5238ac3038d3d94ab460c747d921ecb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bat: {fileID: 1008825320043111794, guid: 96516a1e14b2f1d4c9f58eff7a14855d, type: 3}
+  bats:
+  - {fileID: 5542087910947767801, guid: 173b8d4b7b216cd48b8b12c2217055aa, type: 3}
+  - {fileID: 7645694884008713331, guid: dc3c938698c16ef4785382555853715d, type: 3}
+  - {fileID: 590392110215243606, guid: a535b8d3332804a4eb2bc457b85aecd2, type: 3}
+  - {fileID: 8920046844560865596, guid: 6eaa62e4ff9c0434a83fe36959a5a70f, type: 3}
+  - {fileID: 7287371541951224591, guid: 47c117799bf27ba43b6d2478edac37ec, type: 3}
+  - {fileID: 8089225526520937633, guid: ebbc323e632020945b20e849ddf54506, type: 3}
   rotationSpeed: 50
   numberOfBats: 4
   batScale: {x: 1, y: 1, z: 1}
