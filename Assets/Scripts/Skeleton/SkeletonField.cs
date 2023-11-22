@@ -39,4 +39,13 @@ public class SkeletonField : MonoBehaviour
             newObject.transform.localScale = batScale;
         }
     }
+
+    public void SetNumberOfBatsOnSpawn(int bats)
+    {
+        numberOfBats = bats;
+    }
+    public void SetBatRotationSpeedOnSpawn(float rotationS)
+    {
+        rotationSpeed = rotationS;
+    }
 }

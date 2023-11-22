@@ -49,6 +49,11 @@ public class PresentField : MonoBehaviour
         }
     }
 
+    public void ReducePresents()
+    {
+        numberOfPresents--;
+    }
+
     public void MultiplyPresents()
     {
         numberOfPresents += (int)Mathf.Round(numberOfPresents * 50 / 100) + 1;

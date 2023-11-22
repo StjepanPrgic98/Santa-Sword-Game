@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8288831948360397430}
   - component: {fileID: 8288831948360397431}
   - component: {fileID: 799250731128387400}
+  - component: {fileID: 6729124572651394194}
   m_Layer: 0
   m_Name: PresentSlot
   m_TagString: Present
@@ -111,3 +112,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.03, y: 5.12}
   m_EdgeRadius: 0
+--- !u!114 &6729124572651394194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8288831948360397429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d0b61fa216057448af677a0c156cd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
