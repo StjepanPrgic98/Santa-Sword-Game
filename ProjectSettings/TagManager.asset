@@ -56,6 +56,9 @@ TagManager:
   - name: Goblin
     uniqueID: 1535992071
     locked: 0
+  - name: Skeleton
+    uniqueID: 2000931117
+    locked: 0
   - name: ChristmasTree
     uniqueID: 3554935889
     locked: 0

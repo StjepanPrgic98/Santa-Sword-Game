@@ -10,8 +10,8 @@ public class PresentField : MonoBehaviour
     [Header("Variables")]
     [SerializeField] float rotationSpeed = 50f;
     [SerializeField] int numberOfPresents = 15;
-    [SerializeField] float circleRadius = 1f;
     [SerializeField] Vector3 presentScale = new Vector3(0.1f, 0.1f, 1);
+    [SerializeField] float initialCircleRadius = 2f; // Adjust this value
 
     void Start()
     {
@@ -29,6 +29,8 @@ public class PresentField : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+
+        CalculateOptimalRadius(); // Calculate the optimal radius before arranging objects
 
         for (int i = 0; i < numberOfPresents; i++)
         {
@@ -49,7 +51,9 @@ public class PresentField : MonoBehaviour
 
     public void MultiplyPresents()
     {
-        numberOfPresents *= 2;
+        numberOfPresents += (int)Mathf.Round(numberOfPresents * 50 / 100) + 1;
+        presentScale *= 1.1f; // Adjust scale if needed
+        CalculateOptimalRadius();
         ArrangeObjects();
     }
 
@@ -67,4 +71,15 @@ public class PresentField : MonoBehaviour
     {
         christmasTree.IncreaseTreeHp();
     }
+
+    void CalculateOptimalRadius()
+    {
+        // Calculate the circumference needed to distribute presents evenly
+        float circumference = numberOfPresents * (presentScale.x * 2 * Mathf.PI);
+
+        // Calculate the optimal radius to achieve the desired circumference
+        circleRadius = Mathf.Max(circumference / (2 * Mathf.PI), initialCircleRadius);
+    }
+
+    float circleRadius; // Moved the declaration of circleRadius to the class level
 }
