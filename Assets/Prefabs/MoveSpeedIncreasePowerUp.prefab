@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 419943433844178139}
   - component: {fileID: 419943433844178138}
   - component: {fileID: 419943433844178137}
+  - component: {fileID: 3224847129697215453}
+  - component: {fileID: 3713617713835355018}
   m_Layer: 0
   m_Name: MoveSpeedIncreasePowerUp
   m_TagString: Powerup
@@ -73,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 417419679
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 2020095152, guid: 88ab3175c03f74b4c95ea37f90205698, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -105,7 +107,6 @@ MonoBehaviour:
   repairPowerup: 0
   moneyPowerup: 0
   speedPowerup: 1
-  outOfBoundsPosition: {x: 100, y: 100, z: 0}
   spawnLocations:
   - {fileID: 0}
   - {fileID: 0}
@@ -119,6 +120,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  outOfBoundsPosition: {x: 0, y: 19, z: 0}
 --- !u!58 &419943433844178137
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -135,3 +137,50 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.46
+--- !u!61 &3224847129697215453
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419943433844178141}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.003788948, y: -0.034106255}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.79, y: 0.92}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.2367382, y: 0.16968727}
+  m_EdgeRadius: 0
+--- !u!50 &3713617713835355018
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 419943433844178141}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4

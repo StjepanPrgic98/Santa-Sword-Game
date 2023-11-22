@@ -14,11 +14,13 @@ public class Powerup : MonoBehaviour
     [SerializeField] bool repairPowerup;
     [SerializeField] bool moneyPowerup;
     [SerializeField] bool speedPowerup;
-    [SerializeField] Vector3 outOfBoundsPosition = new Vector2(100,100);
     [SerializeField] List<Transform> spawnLocations;
+    [SerializeField] Vector3 outOfBoundsPosition = new Vector2(100, 100);
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.tag == "Powerup") { SpawnAtRandomLocation(); }
         if(collision.tag != "Player") { return; }
 
         if (presentMultiplyPowerup) { presentField.MultiplyPresents(); }
