@@ -49,6 +49,11 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isWalking", true);
         }
     }
+
+    public void IncreaseMoveSpeed(float ammount)
+    {
+        moveSpeed += ammount;
+    }
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();

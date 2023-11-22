@@ -4,6 +4,8 @@ public class PresentField : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] GameObject present;
+    [SerializeField] PlayerMovement player;
+    [SerializeField] ChristmasTree christmasTree;
 
     [Header("Variables")]
     [SerializeField] float rotationSpeed = 50f;
@@ -23,6 +25,11 @@ public class PresentField : MonoBehaviour
 
     void ArrangeObjects()
     {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         for (int i = 0; i < numberOfPresents; i++)
         {
             float angle = i * (360f / numberOfPresents);
@@ -34,9 +41,31 @@ public class PresentField : MonoBehaviour
             Vector3 newPosition = new Vector3(x, y, transform.position.z);
 
             GameObject newObject = Instantiate(present, newPosition, Quaternion.identity);
-            newObject.transform.parent = transform; 
+            newObject.transform.parent = transform;
 
             newObject.transform.localScale = presentScale;
         }
+    }
+
+    public void MultiplyPresents()
+    {
+        numberOfPresents *= 2;
+        circleRadius += 0.5f;
+        ArrangeObjects();
+    }
+
+    public void MultiplyRotationSpeed()
+    {
+        rotationSpeed *= 1.2f;
+    }
+
+    public void IncreaseMoveSpeed()
+    {
+        player.IncreaseMoveSpeed(0.5f);
+    }
+
+    public void IncreaseTreeHp()
+    {
+        christmasTree.IncreaseTreeHp();
     }
 }

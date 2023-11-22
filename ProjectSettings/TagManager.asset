@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Present
+  - ChristmasTree
+  - Powerup
   layers:
   - Default
   - TransparentFX
@@ -46,4 +49,16 @@ TagManager:
     locked: 0
   - name: Wall
     uniqueID: 4185903973
+    locked: 0
+  - name: Player
+    uniqueID: 2467984601
+    locked: 0
+  - name: Goblin
+    uniqueID: 1535992071
+    locked: 0
+  - name: ChristmasTree
+    uniqueID: 3554935889
+    locked: 0
+  - name: ItemsInLevel
+    uniqueID: 417419679
     locked: 0
