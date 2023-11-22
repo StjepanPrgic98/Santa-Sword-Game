@@ -23,6 +23,7 @@ public class Powerup : MonoBehaviour
     const string rotationText = "+ Rotation Speed!";
     const string repairText = "+ Tree HP!";
     const string speedText = "+ Player Speed!";
+    const string levelUpText = "+ Present Level!";
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -36,6 +37,7 @@ public class Powerup : MonoBehaviour
         if (rotationPowerup) { presentField.MultiplyRotationSpeed(); }
         if (speedPowerup) { presentField.IncreaseMoveSpeed(); }
         if (repairPowerup) { presentField.IncreaseTreeHp(); }
+        if (levelUpPowerup) { presentField.IncreaseLevel(); }
         transform.position = outOfBoundsPosition;
 
         SetRespawnTime();
@@ -70,6 +72,7 @@ public class Powerup : MonoBehaviour
         if (rotationPowerup) { powerupText.text = rotationText; }
         if (repairPowerup) { powerupText.text = repairText; }
         if (speedPowerup) { powerupText.text = speedText; }
+        if (levelUpPowerup) { powerupText.text = levelUpText; }
         Invoke(nameof(ResetPowerupText), 2);
     }
 

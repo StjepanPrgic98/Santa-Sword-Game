@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PresentField : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] GameObject present;
+    [SerializeField] List<GameObject> presents;
     [SerializeField] PlayerMovement player;
     [SerializeField] ChristmasTree christmasTree;
 
@@ -12,6 +13,8 @@ public class PresentField : MonoBehaviour
     [SerializeField] int numberOfPresents = 15;
     [SerializeField] Vector3 presentScale;
     [SerializeField] float initialCircleRadius = 2f;
+
+    int level = 0;
 
     void Start()
     {
@@ -42,11 +45,16 @@ public class PresentField : MonoBehaviour
 
             Vector3 newPosition = new Vector3(x, y, transform.position.z);
 
-            GameObject newObject = Instantiate(present, newPosition, Quaternion.identity);
+            GameObject newObject = Instantiate(presents[level], newPosition, Quaternion.identity);
             newObject.transform.parent = transform;
 
-            newObject.transform.localScale = presentScale;
+            //newObject.transform.localScale = presentScale;
         }
+    }
+
+    public void IncreaseLevel()
+    {
+        level++;
     }
 
     public void ReducePresents()
