@@ -546,17 +546,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   presents:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 9076064083690742524, guid: 3ab0d0dfc74f19740b0a07b9b45108b4, type: 3}
+  - {fileID: 4723695387634429966, guid: fc4c718d8b17f67438dda783b2db71b4, type: 3}
+  - {fileID: 3971882445228821565, guid: d2f3a4fe60cb7664086944687a418b27, type: 3}
+  - {fileID: 5796377570946579506, guid: 6f54c17c471b0674788cc11f929f8471, type: 3}
+  - {fileID: 4411181514062551367, guid: 6f0ffc50c33ac534ea02ce8c2ce529b0, type: 3}
+  - {fileID: 3006539145041018485, guid: 5b959627cbda7494281e747dd3df2649, type: 3}
   player: {fileID: 1162570388}
   christmasTree: {fileID: 1016523816}
   rotationSpeed: 150
   numberOfPresents: 5
-  presentScale: {x: 0.1, y: 0.1, z: 1}
   initialCircleRadius: 0.5
 --- !u!1 &328184245
 GameObject:

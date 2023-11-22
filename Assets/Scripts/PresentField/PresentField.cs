@@ -11,7 +11,6 @@ public class PresentField : MonoBehaviour
     [Header("Variables")]
     [SerializeField] float rotationSpeed = 50f;
     [SerializeField] int numberOfPresents = 15;
-    [SerializeField] Vector3 presentScale;
     [SerializeField] float initialCircleRadius = 2f;
 
     int level = 0;
@@ -47,14 +46,15 @@ public class PresentField : MonoBehaviour
 
             GameObject newObject = Instantiate(presents[level], newPosition, Quaternion.identity);
             newObject.transform.parent = transform;
-
-            //newObject.transform.localScale = presentScale;
         }
     }
 
     public void IncreaseLevel()
     {
         level++;
+        numberOfPresents /= 2;
+        rotationSpeed /= 1.3f;
+        ArrangeObjects();
     }
 
     public void ReducePresents()
@@ -87,7 +87,7 @@ public class PresentField : MonoBehaviour
     void CalculateOptimalRadius()
     {
         // Calculate the circumference needed to distribute presents evenly
-        float circumference = numberOfPresents * (presentScale.x * 2 * Mathf.PI);
+        float circumference = numberOfPresents * (presents[level].transform.localScale.x * 2 * Mathf.PI);
 
         // Calculate the optimal radius to achieve the desired circumference
         circleRadius = Mathf.Max(circumference / (2 * Mathf.PI), initialCircleRadius);
