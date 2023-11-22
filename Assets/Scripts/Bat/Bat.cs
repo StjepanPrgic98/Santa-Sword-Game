@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class Bat : MonoBehaviour
 {
+    [Header("Variables")]
+    [SerializeField] int level;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Present")
         {
-            Destroy(gameObject);
-            FindObjectOfType<PresentField>().ReducePresents();
+            Present present = collision.GetComponent<Present>();
+
+            if(level <= present.GetLevel()) { Destroy(gameObject); }
         }
+    }
+
+    public int GetLevel()
+    {
+        return level;
     }
 }

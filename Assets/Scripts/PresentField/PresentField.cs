@@ -10,8 +10,8 @@ public class PresentField : MonoBehaviour
     [Header("Variables")]
     [SerializeField] float rotationSpeed = 50f;
     [SerializeField] int numberOfPresents = 15;
-    [SerializeField] Vector3 presentScale = new Vector3(0.1f, 0.1f, 1);
-    [SerializeField] float initialCircleRadius = 2f; // Adjust this value
+    [SerializeField] Vector3 presentScale;
+    [SerializeField] float initialCircleRadius = 2f;
 
     void Start()
     {
@@ -57,7 +57,6 @@ public class PresentField : MonoBehaviour
     public void MultiplyPresents()
     {
         numberOfPresents += (int)Mathf.Round(numberOfPresents * 50 / 100) + 1;
-        presentScale *= 1.1f; // Adjust scale if needed
         CalculateOptimalRadius();
         ArrangeObjects();
     }
