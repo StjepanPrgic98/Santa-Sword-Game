@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Powerup : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] PresentField presentField;
+    [SerializeField] TextMeshProUGUI powerupText;
 
     [Header("Variables")]
     [SerializeField] bool presentMultiplyPowerup;
@@ -17,11 +19,18 @@ public class Powerup : MonoBehaviour
     [SerializeField] List<Transform> spawnLocations;
     [SerializeField] Vector3 outOfBoundsPosition = new Vector2(100, 100);
 
+    const string presentMultiplyText = "+ Presents!";
+    const string rotationText = "+ Rotation Speed!";
+    const string repairText = "+ Tree HP!";
+    const string speedText = "+ Player Speed!";
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Powerup") { SpawnAtRandomLocation(); }
         if(collision.tag != "Player") { return; }
+
+        DisplayPowerupText();
 
         if (presentMultiplyPowerup) { presentField.MultiplyPresents(); }
         if (rotationPowerup) { presentField.MultiplyRotationSpeed(); }
@@ -53,6 +62,20 @@ public class Powerup : MonoBehaviour
     {
         int randomNumber = Random.Range(0, spawnLocations.Count);
         transform.position = spawnLocations[randomNumber].position;
+    }
+
+    void DisplayPowerupText()
+    {
+        if (presentMultiplyPowerup) { powerupText.text = presentMultiplyText; }
+        if (rotationPowerup) { powerupText.text = rotationText; }
+        if (repairPowerup) { powerupText.text = repairText; }
+        if (speedPowerup) { powerupText.text = speedText; }
+        Invoke(nameof(ResetPowerupText), 2);
+    }
+
+    void ResetPowerupText()
+    {
+        powerupText.text = "";
     }
 
     
