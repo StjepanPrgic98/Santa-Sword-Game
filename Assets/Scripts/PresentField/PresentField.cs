@@ -50,7 +50,6 @@ public class PresentField : MonoBehaviour
     public void MultiplyPresents()
     {
         numberOfPresents *= 2;
-        circleRadius += 0.5f;
         ArrangeObjects();
     }
 
