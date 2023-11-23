@@ -81,5 +81,16 @@ public class Powerup : MonoBehaviour
         powerupText.text = "";
     }
 
-    
+    public void GiveRandomPowerup()
+    {
+        int randomPowerup = Random.Range(0, 5);
+        if(randomPowerup == 0) { presentField.MultiplyPresents(); powerupText.text = presentMultiplyText; }
+        if(randomPowerup == 1) { presentField.MultiplyRotationSpeed(); powerupText.text = rotationText; }
+        if(randomPowerup == 2) { presentField.IncreaseMoveSpeed(); powerupText.text = speedText; }
+        if(randomPowerup == 3) { presentField.IncreaseTreeHp(); powerupText.text = repairText; }
+        if(randomPowerup == 4) { presentField.IncreaseLevel(); powerupText.text = levelUpText; }
+        Invoke(nameof(ResetPowerupText), 2);
+    }
+
+
 }

@@ -28,7 +28,8 @@ public class Goblin : MonoBehaviour
     void PlayDeathAnimation()
     {
         animator.SetBool("isDead", true);
-        Invoke(nameof(Destroy), 0.5f);
+        Destroy(gameObject, 0.5f);
+        FindObjectOfType<KillPowerup>().KillGoblin();
     }
 
     void SetAttackAnimation(bool state)
@@ -44,10 +45,5 @@ public class Goblin : MonoBehaviour
             if(christmasTree.GetHp() <= 0) { SetAttackAnimation(false); PlayDeathAnimation(); break; }
             christmasTree.ReduceHp();
         }
-    }
-
-    void Destroy()
-    {
-        Destroy(gameObject);
     }
 }

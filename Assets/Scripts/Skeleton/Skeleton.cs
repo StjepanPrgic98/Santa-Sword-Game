@@ -13,6 +13,7 @@ public class Skeleton : MonoBehaviour
         {
             PlayDeathAnimation();
             Destroy(gameObject, 1);
+            FindObjectOfType<KillPowerup>().KillSkeleton();
         }
     }
 

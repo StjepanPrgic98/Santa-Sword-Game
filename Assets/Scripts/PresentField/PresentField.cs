@@ -53,6 +53,8 @@ public class PresentField : MonoBehaviour
     {
         level++;
         numberOfPresents = Mathf.RoundToInt(numberOfPresents / 1.5f);
+        if(numberOfPresents == 0) { numberOfPresents = 1; }
+        if(level > 5) { level = 5; numberOfPresents += 2; }
         rotationSpeed /= 1.2f;
         ArrangeObjects();
     }
