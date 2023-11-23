@@ -8,6 +8,9 @@ TagManager:
   - ChristmasTree
   - Powerup
   - Bat
+  - PresentField
+  - Goblin
+  - Skeleton
   layers:
   - Default
   - TransparentFX

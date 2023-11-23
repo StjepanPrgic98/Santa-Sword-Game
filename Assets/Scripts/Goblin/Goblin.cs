@@ -11,7 +11,7 @@ public class Goblin : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Present")
+        if (collision.tag == "Present" || collision.tag == "Player")
         {
             PlayDeathAnimation();
         }

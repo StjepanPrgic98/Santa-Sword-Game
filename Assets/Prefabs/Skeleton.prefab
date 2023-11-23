@@ -106,7 +106,6 @@ MonoBehaviour:
   - {fileID: 8089225526520937633, guid: ebbc323e632020945b20e849ddf54506, type: 3}
   rotationSpeed: 50
   numberOfBats: 4
-  batScale: {x: 1, y: 1, z: 1}
   initialCircleRadius: 1
 --- !u!1 &2084094144842933570
 GameObject:
@@ -124,7 +123,7 @@ GameObject:
   - component: {fileID: 770129992}
   m_Layer: 0
   m_Name: Skeleton
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

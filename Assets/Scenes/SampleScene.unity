@@ -459,9 +459,10 @@ GameObject:
   - component: {fileID: 260742716}
   - component: {fileID: 260742717}
   - component: {fileID: 260742718}
+  - component: {fileID: 260742719}
   m_Layer: 0
   m_Name: PresentsField
-  m_TagString: Untagged
+  m_TagString: PresentField
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -554,9 +555,27 @@ MonoBehaviour:
   - {fileID: 3006539145041018485, guid: 5b959627cbda7494281e747dd3df2649, type: 3}
   player: {fileID: 1162570388}
   christmasTree: {fileID: 1016523816}
+  powerupText: {fileID: 673398039}
+  virtualCamera: {fileID: 640931185}
   rotationSpeed: 150
-  numberOfPresents: 1
+  numberOfPresents: 25
   initialCircleRadius: 0.5
+--- !u!58 &260742719
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260742715}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.05790913, y: -0.023962438}
+  serializedVersion: 2
+  m_Radius: 0.2543854
 --- !u!1 &328184245
 GameObject:
   m_ObjectHideFlags: 0

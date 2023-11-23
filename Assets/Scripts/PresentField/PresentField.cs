@@ -1,4 +1,6 @@
+using Cinemachine;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PresentField : MonoBehaviour
@@ -7,6 +9,8 @@ public class PresentField : MonoBehaviour
     [SerializeField] List<GameObject> presents;
     [SerializeField] PlayerMovement player;
     [SerializeField] ChristmasTree christmasTree;
+    [SerializeField] TextMeshProUGUI powerupText;
+    [SerializeField] CinemachineVirtualCamera virtualCamera;
 
     [Header("Variables")]
     [SerializeField] float rotationSpeed = 50f;
@@ -23,6 +27,14 @@ public class PresentField : MonoBehaviour
     void Update()
     {
         transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Goblin" || collision.tag == "Skeleton" || collision.tag == "Bat")
+        {
+            DecreaseLevel();
+        }
     }
 
     void ArrangeObjects()
@@ -47,6 +59,8 @@ public class PresentField : MonoBehaviour
             GameObject newObject = Instantiate(presents[level], newPosition, Quaternion.identity);
             newObject.transform.parent = transform;
         }
+
+        SetVirutalCameraDistance();
     }
 
     public void IncreaseLevel()
@@ -57,6 +71,18 @@ public class PresentField : MonoBehaviour
         if(level > 5) { level = 5; numberOfPresents += 2; }
         rotationSpeed /= 1.2f;
         ArrangeObjects();
+    }
+
+    void DecreaseLevel()
+    {
+        level--;
+        numberOfPresents = Mathf.RoundToInt(numberOfPresents * 1.5f);
+        if (numberOfPresents == 0) { numberOfPresents = 1; }
+        if (level > 5) { level = 4; }
+        if(level < 0) { level = 1; }
+        rotationSpeed *= 1.2f;
+        ArrangeObjects();
+        WritePowerupText("- Level!");
     }
 
     public void ReducePresents()
@@ -93,6 +119,25 @@ public class PresentField : MonoBehaviour
 
         // Calculate the optimal radius to achieve the desired circumference
         circleRadius = Mathf.Max(circumference / (2 * Mathf.PI), initialCircleRadius);
+    }
+
+    void WritePowerupText(string text)
+    {
+        powerupText.text = text;
+        Invoke(nameof(ResetPowerupText), 2);
+    }
+    void ResetPowerupText()
+    {
+        powerupText.text = "";
+    }
+
+    void SetVirutalCameraDistance()
+    {
+        if(numberOfPresents > 30)
+        {
+            virtualCamera.m_Lens.OrthographicSize = 2.5f;
+        }
+        else { virtualCamera.m_Lens.OrthographicSize = 1.9f; }
     }
 
     float circleRadius; // Moved the declaration of circleRadius to the class level
