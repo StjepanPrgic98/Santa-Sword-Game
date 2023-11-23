@@ -51,12 +51,13 @@ public class Powerup : MonoBehaviour
 
     private void Start()
     {
+        SetMinAndMaxRangeOfTimeToRespawn();
+        if (minRange == 0 && maxRange == 0) { return; }
         SpawnAtRandomLocation();
     }
 
     void SetRespawnTime()
     {
-        SetMinAndMaxRangeOfTimeToRespawn();
         int respawnTime = Random.Range(minRange, maxRange);
         StartCoroutine(WaitAndRespawnPowerUp(respawnTime));
     }
@@ -102,33 +103,33 @@ public class Powerup : MonoBehaviour
     {
         if (presentMultiplyPowerup)
         {
+            if (ShopManager.LevelOfPresentMultiplyPowerup == 0) { minRange = 0; maxRange = 0; return; }
             minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfPresentMultiplyPowerup + 5);
             maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfPresentMultiplyPowerup + 25);
-            if(ShopManager.LevelOfPresentMultiplyPowerup == 0) { minRange = 0; maxRange = 0; }
         }
         if (rotationPowerup)
         {
+            if (ShopManager.LevelOfRotationSpeedPowerup == 0) { minRange = 0; maxRange = 0; return; }
             minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfRotationSpeedPowerup + 5);
             maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfRotationSpeedPowerup + 25);
-            if (ShopManager.LevelOfRotationSpeedPowerup == 0) { minRange = 0; maxRange = 0; }
         }
         if (speedPowerup)
         {
+            if (ShopManager.LevelOfPlayerSpeedPowerup == 0) { minRange = 0; maxRange = 0; return; }
             minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfPlayerSpeedPowerup + 5);
             maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfPlayerSpeedPowerup + 25);
-            if (ShopManager.LevelOfPlayerSpeedPowerup == 0) { minRange = 0; maxRange = 0; }
         }
         if (levelUpPowerup)
         {
+            if (ShopManager.LevelOfLevelUpPowerup == 0) { minRange = 0; maxRange = 0; return; }
             minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfLevelUpPowerup + 5);
             maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfLevelUpPowerup + 25);
-            if (ShopManager.LevelOfLevelUpPowerup == 0) { minRange = 0; maxRange = 0; }
         }
         if (repairPowerup)
         {
+            if (ShopManager.LevelOfChristmasTreeRepairPowerup == 0) { minRange = 0; maxRange = 0; return; }
             minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfChristmasTreeRepairPowerup + 5);
             maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfChristmasTreeRepairPowerup + 25);
-            if (ShopManager.LevelOfChristmasTreeRepairPowerup == 0) { minRange = 0; maxRange = 0; }
         }
     }
 

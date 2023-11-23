@@ -4,11 +4,11 @@ using UnityEngine;
 
 public static class ShopManager
 {
-    public static int LevelOfPresentMultiplyPowerup { get; private set; }
-    public static int LevelOfRotationSpeedPowerup { get; private set; }
-    public static int LevelOfPlayerSpeedPowerup { get; private set; }
-    public static int LevelOfLevelUpPowerup { get; private set; }
-    public static int LevelOfChristmasTreeRepairPowerup { get; private set; }
+    public static int LevelOfPresentMultiplyPowerup { get; private set; } = 0;
+    public static int LevelOfRotationSpeedPowerup { get; private set; } = 0;
+    public static int LevelOfPlayerSpeedPowerup { get; private set; } = 0;
+    public static int LevelOfLevelUpPowerup { get; private set; } = 0;
+    public static int LevelOfChristmasTreeRepairPowerup { get; private set; } = 0;
 
     public static void IncreaseLevelOfPresentMultiplyPowerup()
     {
