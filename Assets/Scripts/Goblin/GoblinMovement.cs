@@ -6,6 +6,7 @@ public class GoblinMovement : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] Rigidbody2D rigidBody;
 
     [Header("Variables")]
     [SerializeField] float moveSpeed = 5f;
@@ -39,6 +40,7 @@ public class GoblinMovement : MonoBehaviour
     {
         if(collision.tag == "ChristmasTree")
         {
+            rigidBody.isKinematic = true;
             this.enabled = false;
         }
     }

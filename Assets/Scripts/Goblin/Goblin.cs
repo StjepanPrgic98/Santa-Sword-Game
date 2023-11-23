@@ -6,6 +6,7 @@ public class Goblin : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField] Animator animator;
+    [SerializeField] BoxCollider2D boxCollider;
 
     ChristmasTree christmasTree;
 
@@ -28,6 +29,7 @@ public class Goblin : MonoBehaviour
     void PlayDeathAnimation()
     {
         animator.SetBool("isDead", true);
+        boxCollider.enabled = false;
         Destroy(gameObject, 0.5f);
         FindObjectOfType<KillPowerup>().KillGoblin();
     }

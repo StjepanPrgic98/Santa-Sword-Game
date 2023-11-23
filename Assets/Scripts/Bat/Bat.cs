@@ -14,6 +14,10 @@ public class Bat : MonoBehaviour
 
             if(level <= present.GetLevel()) { Destroy(gameObject); }
         }
+        if(collision.tag == "Player")
+        {
+            Destroy(gameObject);
+        }
     }
 
     public int GetLevel()
