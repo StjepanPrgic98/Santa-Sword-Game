@@ -25,6 +25,11 @@ public class Powerup : MonoBehaviour
     const string speedText = "+ Player Speed!";
     const string levelUpText = "+ Present Level!";
 
+    int minRange = 0;
+    int maxRange = 0;
+
+    int baseMinRange = 50;
+    int baseMaxRange = 100;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -51,7 +56,8 @@ public class Powerup : MonoBehaviour
 
     void SetRespawnTime()
     {
-        int respawnTime = Random.Range(15, 60);
+        SetMinAndMaxRangeOfTimeToRespawn();
+        int respawnTime = Random.Range(minRange, maxRange);
         StartCoroutine(WaitAndRespawnPowerUp(respawnTime));
     }
     IEnumerator WaitAndRespawnPowerUp(int delay)
@@ -90,6 +96,40 @@ public class Powerup : MonoBehaviour
         if(randomPowerup == 3) { presentField.IncreaseTreeHp(); powerupText.text = repairText; }
         if(randomPowerup == 4) { presentField.IncreaseLevel(); powerupText.text = levelUpText; }
         Invoke(nameof(ResetPowerupText), 2);
+    }
+
+    void SetMinAndMaxRangeOfTimeToRespawn()
+    {
+        if (presentMultiplyPowerup)
+        {
+            minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfPresentMultiplyPowerup + 5);
+            maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfPresentMultiplyPowerup + 25);
+            if(ShopManager.LevelOfPresentMultiplyPowerup == 0) { minRange = 0; maxRange = 0; }
+        }
+        if (rotationPowerup)
+        {
+            minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfRotationSpeedPowerup + 5);
+            maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfRotationSpeedPowerup + 25);
+            if (ShopManager.LevelOfRotationSpeedPowerup == 0) { minRange = 0; maxRange = 0; }
+        }
+        if (speedPowerup)
+        {
+            minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfPlayerSpeedPowerup + 5);
+            maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfPlayerSpeedPowerup + 25);
+            if (ShopManager.LevelOfPlayerSpeedPowerup == 0) { minRange = 0; maxRange = 0; }
+        }
+        if (levelUpPowerup)
+        {
+            minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfLevelUpPowerup + 5);
+            maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfLevelUpPowerup + 25);
+            if (ShopManager.LevelOfLevelUpPowerup == 0) { minRange = 0; maxRange = 0; }
+        }
+        if (repairPowerup)
+        {
+            minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfChristmasTreeRepairPowerup + 5);
+            maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfChristmasTreeRepairPowerup + 25);
+            if (ShopManager.LevelOfChristmasTreeRepairPowerup == 0) { minRange = 0; maxRange = 0; }
+        }
     }
 
 

@@ -67,7 +67,7 @@ public class PresentField : MonoBehaviour
     {
         level++;
         numberOfPresents = Mathf.RoundToInt(numberOfPresents / 1.5f);
-        if(numberOfPresents == 0) { numberOfPresents = 1; }
+        if(numberOfPresents <= 0) { numberOfPresents = 1; }
         if(level > 5) { level = 5; numberOfPresents += 2; }
         rotationSpeed /= 1.2f;
         ArrangeObjects();
@@ -80,7 +80,7 @@ public class PresentField : MonoBehaviour
         if (numberOfPresents == 0) { numberOfPresents = 1; }
         if (level > 5) { level = 4; }
         if(level < 0) { level = 1; }
-        rotationSpeed *= 1.2f;
+        rotationSpeed *= 1.1f;
         ArrangeObjects();
         WritePowerupText("- Level!");
     }
