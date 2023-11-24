@@ -8,21 +8,25 @@ public class ChristmasTree : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] Slider hpSlider;
+    [SerializeField] TextMeshProUGUI blackHpText;
+    [SerializeField] GameObject nukeExplosion;
 
     [Header("Variables")]
     [SerializeField] int hp = 1000;
 
+    int maxHp = 1000;
+
     private void Start()
     {
-        UpdateHpSlider();
+        UpdateHpDisplays();
     }
 
 
     public void ReduceHp()
     {
-        if(hp <= 0) { Destroy(); }
+        if(hp <= 0) { DeathAnimation(); Destroy(gameObject, 0.5f); return; }
         hp--;
-        UpdateHpSlider();
+        UpdateHpDisplays();
     }
 
     public int GetHp()
@@ -30,15 +34,20 @@ public class ChristmasTree : MonoBehaviour
         return hp;
     }
 
+    void UpdateHpDisplays()
+    {
+        UpdateHpSlider();
+        UpdateHpText();
+    }
+
     void UpdateHpSlider()
     {
         hpSlider.value = hp;
     }
 
-
-    void Destroy()
+    void UpdateHpText()
     {
-        Destroy(gameObject);
+        blackHpText.text = hp + "/" + maxHp;
     }
 
     public void IncreaseTreeHp()
@@ -47,4 +56,10 @@ public class ChristmasTree : MonoBehaviour
         if (hp > 1000) { hp = 1000; } 
         UpdateHpSlider();
     }
+
+    void DeathAnimation()
+    {    
+        object nukeExplosionObject = Instantiate(nukeExplosion, transform.position, Quaternion.identity);
+    }
+
 }

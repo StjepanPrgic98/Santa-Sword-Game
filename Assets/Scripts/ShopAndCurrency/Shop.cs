@@ -65,7 +65,6 @@ public class Shop : MonoBehaviour
                 break;
         }
         powerUpToUpgrade = powerupName;
-        upgradeButton.SetActive(true);
     }
 
     void CheckForPowerupUnlockedLevels(int powerupLevel)
@@ -81,6 +80,8 @@ public class Shop : MonoBehaviour
         {
             levelImages[i].sprite = levelUnlockedSprite;
         }
+        if(powerupLevel >= 5) { upgradeButton.SetActive(false); }
+        else { upgradeButton.SetActive(true); }
     }
 
     void GetPowerupPrice(int powerupLevel, int powerupPrice)
@@ -145,5 +146,10 @@ public class Shop : MonoBehaviour
     void DisplayMoneyOwned()
     {
         moneyOwnedText.text = "Money owned: " + CurrencyManager.CurrencyOwned;
+    }
+
+    public void StartGame()
+    {
+        LevelManager.LoadLevel("Main");
     }
 }
