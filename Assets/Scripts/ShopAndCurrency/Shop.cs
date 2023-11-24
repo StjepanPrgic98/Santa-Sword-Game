@@ -74,14 +74,14 @@ public class Shop : MonoBehaviour
             image.enabled = true;
             image.sprite = lockedLevelSprite;
         }
+        if (powerupLevel >= 5) { upgradeButton.SetActive(false); }
+        else { upgradeButton.SetActive(true); }
 
-        if(powerupLevel == 0) { return; }
+        if (powerupLevel == 0) { return; }
         for (int i = 0; i < powerupLevel; i++)
         {
             levelImages[i].sprite = levelUnlockedSprite;
         }
-        if(powerupLevel >= 5) { upgradeButton.SetActive(false); }
-        else { upgradeButton.SetActive(true); }
     }
 
     void GetPowerupPrice(int powerupLevel, int powerupPrice)

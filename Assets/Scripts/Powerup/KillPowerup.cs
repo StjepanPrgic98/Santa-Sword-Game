@@ -41,6 +41,7 @@ public class KillPowerup : MonoBehaviour
         {
             enemiesKilled = 0;
             powerup.GiveRandomPowerup();
+            numberOfEnemiesNeededForPowerup *= 2;
         }
     }
 

@@ -7219,7 +7219,7 @@ MonoBehaviour:
   nukeExplosion: {fileID: 8032863688965307313, guid: 7ca27b428b611424ea53d0e6f4be99ae, type: 3}
   boxCollider: {fileID: 1016523813}
   spriteRenderer: {fileID: 1016523814}
-  hp: 10
+  hp: 1000
 --- !u!1 &1021916671
 GameObject:
   m_ObjectHideFlags: 0
@@ -111060,11 +111060,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1301731918764605751, guid: 7e8ca76f4a54a0b418231cc415ab9f0e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.94
+      value: -1.97
       objectReference: {fileID: 0}
     - target: {fileID: 1301731918764605751, guid: 7e8ca76f4a54a0b418231cc415ab9f0e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.41
+      value: 15.8
       objectReference: {fileID: 0}
     - target: {fileID: 1301731918764605751, guid: 7e8ca76f4a54a0b418231cc415ab9f0e, type: 3}
       propertyPath: m_LocalPosition.z
