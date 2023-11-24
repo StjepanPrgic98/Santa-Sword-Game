@@ -10,6 +10,7 @@ public class Shop : MonoBehaviour
     [SerializeField] TextMeshProUGUI description;
     [SerializeField] TextMeshProUGUI price;
     [SerializeField] TextMeshProUGUI shopText;
+    [SerializeField] TextMeshProUGUI moneyOwnedText;
     [SerializeField] GameObject upgradeButton;
     [SerializeField] List<Image> levelImages;
     [SerializeField] Sprite levelUnlockedSprite;
@@ -27,6 +28,11 @@ public class Shop : MonoBehaviour
 
     int nextUpgradeLevelPrice = 0;
     string powerUpToUpgrade = "";
+
+    private void Start()
+    {
+        DisplayMoneyOwned();
+    }
 
     public void DisplayPowerupInformation(string powerupName)
     {
@@ -107,11 +113,19 @@ public class Shop : MonoBehaviour
                 ShopManager.IncreaseLevelOfChristmasTreeRepairPowerup();
                 break;
         }
+
+        DisplayPowerupInformation(powerUpToUpgrade);
+        DisplayMoneyOwned();
     }
 
     bool CheckIfPlayerHasEnoughMoney(int moneyOwned, int moneyNeeded)
     {
-        if(moneyOwned >= moneyNeeded) { DisplayPurchaseText(upgradeSucces); return true;}
+        if(moneyOwned >= moneyNeeded) 
+        {
+            CurrencyManager.DecreaseCurrency(moneyNeeded);
+            DisplayPurchaseText(upgradeSucces); 
+            return true;
+        }
 
         DisplayPurchaseText(notEnoughMoney);
         return false;
@@ -126,5 +140,10 @@ public class Shop : MonoBehaviour
     void ResetPurchaseText()
     {
         shopText.text = "";
+    }
+
+    void DisplayMoneyOwned()
+    {
+        moneyOwnedText.text = "Money owned: " + CurrencyManager.CurrencyOwned;
     }
 }
