@@ -133,11 +133,10 @@ public class PresentField : MonoBehaviour
 
     void SetVirutalCameraDistance()
     {
-        if(numberOfPresents > 30)
-        {
-            virtualCamera.m_Lens.OrthographicSize = 2.5f;
-        }
-        else { virtualCamera.m_Lens.OrthographicSize = 1.9f; }
+        if(numberOfPresents < 15) { virtualCamera.m_Lens.OrthographicSize = 1.9f; }
+        if(numberOfPresents > 15) { virtualCamera.m_Lens.OrthographicSize = 2.5f; }
+        if (level == 4 || level == 5 && numberOfPresents > 15) { virtualCamera.m_Lens.OrthographicSize = 3f; }
+        if (numberOfPresents > 30) { virtualCamera.m_Lens.OrthographicSize = 3.5f; }
     }
 
     float circleRadius; // Moved the declaration of circleRadius to the class level

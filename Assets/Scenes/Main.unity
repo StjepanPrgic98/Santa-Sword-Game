@@ -1679,7 +1679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerup: {fileID: 378079289}
-  moneyOwnedText: {fileID: 0}
+  moneyOwnedText: {fileID: 836023329}
   numberOfEnemiesNeededForPowerup: 20
   enemiesKilled: 0
 --- !u!4 &675867852
