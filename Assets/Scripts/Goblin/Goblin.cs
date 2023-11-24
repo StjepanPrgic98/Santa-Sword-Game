@@ -44,8 +44,8 @@ public class Goblin : MonoBehaviour
         while (animator.GetBool("isAttacking"))
         {
             yield return new WaitForSeconds(delay);
+            if (christmasTree.GetHp() <= 0) { christmasTree.ReduceHp(); SetAttackAnimation(false); PlayDeathAnimation(); break; }
             christmasTree.ReduceHp();
-            if (christmasTree.GetHp() <= 0) { SetAttackAnimation(false); PlayDeathAnimation(); break; }
         }
     }
 }

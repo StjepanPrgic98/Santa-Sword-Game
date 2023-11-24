@@ -11,6 +11,9 @@ public class ChristmasTree : MonoBehaviour
     [SerializeField] TextMeshProUGUI blackHpText;
     [SerializeField] GameObject nukeExplosion;
 
+    [Header("Components")]
+    [SerializeField] BoxCollider2D boxCollider;
+
     [Header("Variables")]
     [SerializeField] int hp = 1000;
 
@@ -24,7 +27,7 @@ public class ChristmasTree : MonoBehaviour
 
     public void ReduceHp()
     {
-        if(hp <= 0) { DeathAnimation(); Destroy(gameObject, 0.5f); return; }
+        if(hp <= 0) { DeathAnimation(); boxCollider.enabled = false; Destroy(gameObject, 0.7f); return; }
         hp--;
         UpdateHpDisplays();
     }
@@ -59,7 +62,8 @@ public class ChristmasTree : MonoBehaviour
 
     void DeathAnimation()
     {    
-        object nukeExplosionObject = Instantiate(nukeExplosion, transform.position, Quaternion.identity);
+        GameObject nukeExplosionObject = Instantiate(nukeExplosion, transform.position, Quaternion.identity);
+        Destroy(nukeExplosionObject, 1);
     }
 
 }
