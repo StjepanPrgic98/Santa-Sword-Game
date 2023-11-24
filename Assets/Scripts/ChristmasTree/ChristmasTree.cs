@@ -9,10 +9,12 @@ public class ChristmasTree : MonoBehaviour
     [Header("References")]
     [SerializeField] Slider hpSlider;
     [SerializeField] TextMeshProUGUI blackHpText;
+    [SerializeField] TextMeshProUGUI loadingShopText;
     [SerializeField] GameObject nukeExplosion;
 
     [Header("Components")]
     [SerializeField] BoxCollider2D boxCollider;
+    [SerializeField] SpriteRenderer spriteRenderer;
 
     [Header("Variables")]
     [SerializeField] int hp = 1000;
@@ -27,7 +29,15 @@ public class ChristmasTree : MonoBehaviour
 
     public void ReduceHp()
     {
-        if(hp <= 0) { DeathAnimation(); boxCollider.enabled = false; Destroy(gameObject, 0.7f); return; }
+        if(hp <= 0) 
+        {
+            DeathAnimation();
+            boxCollider.enabled = false;
+            Invoke(nameof(DestroyTree), 0.7f);
+            loadingShopText.text = "Loading Shop...";
+            Invoke(nameof(LoadShopLevel), 4);
+            return; 
+        }
         hp--;
         UpdateHpDisplays();
     }
@@ -64,6 +74,16 @@ public class ChristmasTree : MonoBehaviour
     {    
         GameObject nukeExplosionObject = Instantiate(nukeExplosion, transform.position, Quaternion.identity);
         Destroy(nukeExplosionObject, 1);
+    }
+
+    void DestroyTree()
+    {
+        spriteRenderer.enabled = false;
+    }
+
+    void LoadShopLevel()
+    {
+        LevelManager.LoadLevel("Shop");
     }
 
 }
