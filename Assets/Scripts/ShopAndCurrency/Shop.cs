@@ -9,6 +9,8 @@ public class Shop : MonoBehaviour
     [Header("References")]
     [SerializeField] TextMeshProUGUI description;
     [SerializeField] TextMeshProUGUI price;
+    [SerializeField] TextMeshProUGUI shopText;
+    [SerializeField] GameObject upgradeButton;
     [SerializeField] List<Image> levelImages;
     [SerializeField] Sprite levelUnlockedSprite;
     [SerializeField] Sprite lockedLevelSprite;
@@ -19,6 +21,12 @@ public class Shop : MonoBehaviour
     const string increasePlayerSpeedDescription = "Increases player speed";
     const string increaseLevelDescription = "Increases present level";
     const string repairDescription = "Restores Christmas Tree HP by 300";
+
+    const string upgradeSucces = "Upgraded!";
+    const string notEnoughMoney = "Not enough money!";
+
+    int nextUpgradeLevelPrice = 0;
+    string powerUpToUpgrade = "";
 
     public void DisplayPowerupInformation(string powerupName)
     {
@@ -50,12 +58,15 @@ public class Shop : MonoBehaviour
                 GetPowerupPrice(ShopManager.LevelOfChristmasTreeRepairPowerup, ShopManager.BasePowerupLevelPrice);
                 break;
         }
+        powerUpToUpgrade = powerupName;
+        upgradeButton.SetActive(true);
     }
 
     void CheckForPowerupUnlockedLevels(int powerupLevel)
     {
         foreach (var image in levelImages)
         {
+            image.enabled = true;
             image.sprite = lockedLevelSprite;
         }
 
@@ -72,5 +83,48 @@ public class Shop : MonoBehaviour
         if(powerupLevel == 0) { nextLevelPrice = ShopManager.BasePowerupLevelPrice; }
         if(powerupLevel >= 5) { price.text = "Max level!"; return; }
         price.text = "Next level price: " + nextLevelPrice;
+        nextUpgradeLevelPrice = nextLevelPrice;
+    }
+
+    public void UpgradePowerup()
+    {
+        if (!CheckIfPlayerHasEnoughMoney(CurrencyManager.CurrencyOwned, nextUpgradeLevelPrice)) { return; };
+        switch (powerUpToUpgrade)
+        {
+            case "Multiply":
+                ShopManager.IncreaseLevelOfPresentMultiplyPowerup();
+                break;
+            case "Rotation":
+                ShopManager.IncreaseLevelOfRotationSpeedPowerup();
+                break;
+            case "Speed":
+                ShopManager.IncreaseLevelOfPlayerSpeedPowerup();
+                break;
+            case "Level":
+                ShopManager.IncreaseLevelOfLevelUpPowerup();
+                break;
+            case "Repair":
+                ShopManager.IncreaseLevelOfChristmasTreeRepairPowerup();
+                break;
+        }
+    }
+
+    bool CheckIfPlayerHasEnoughMoney(int moneyOwned, int moneyNeeded)
+    {
+        if(moneyOwned >= moneyNeeded) { DisplayPurchaseText(upgradeSucces); return true;}
+
+        DisplayPurchaseText(notEnoughMoney);
+        return false;
+    }
+
+    void DisplayPurchaseText(string text)
+    {
+        shopText.text = text;
+        Invoke(nameof(ResetPurchaseText), 2);
+    }
+
+    void ResetPurchaseText()
+    {
+        shopText.text = "";
     }
 }
