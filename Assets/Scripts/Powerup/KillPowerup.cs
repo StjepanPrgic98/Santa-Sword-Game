@@ -8,6 +8,7 @@ public class KillPowerup : MonoBehaviour
     [Header("References")]
     [SerializeField] Powerup powerup;
     [SerializeField] TextMeshProUGUI moneyOwnedText;
+    [SerializeField] AudioPlayer audioPlayer;
 
     [Header("Variables")]
     [SerializeField] int numberOfEnemiesNeededForPowerup = 20;
@@ -26,6 +27,7 @@ public class KillPowerup : MonoBehaviour
         enemiesKilled++;
         CheckForNumberOfEnemiesDefeated();
         IncreaseMoney(1);
+        audioPlayer.PlayGoblinDeathClip();
     }
 
     public void KillSkeleton()
@@ -33,6 +35,7 @@ public class KillPowerup : MonoBehaviour
         enemiesKilled += 3;
         CheckForNumberOfEnemiesDefeated();
         IncreaseMoney(10);
+        audioPlayer.PlaySkeletonDeathClip();
     }
 
     private void CheckForNumberOfEnemiesDefeated()
@@ -42,6 +45,7 @@ public class KillPowerup : MonoBehaviour
             enemiesKilled = 0;
             powerup.GiveRandomPowerup();
             numberOfEnemiesNeededForPowerup *= 2;
+            audioPlayer.PlayLevelUpClip();
         }
     }
 

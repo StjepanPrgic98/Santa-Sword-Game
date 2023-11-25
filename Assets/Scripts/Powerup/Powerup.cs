@@ -8,6 +8,7 @@ public class Powerup : MonoBehaviour
     [Header("References")]
     [SerializeField] PresentField presentField;
     [SerializeField] TextMeshProUGUI powerupText;
+    [SerializeField] AudioPlayer audioPlayer;
 
     [Header("Variables")]
     [SerializeField] bool presentMultiplyPowerup;
@@ -46,6 +47,7 @@ public class Powerup : MonoBehaviour
         transform.position = outOfBoundsPosition;
 
         SetRespawnTime();
+        audioPlayer.PlayCollectPowerupClip();
         
     }
 
@@ -94,7 +96,7 @@ public class Powerup : MonoBehaviour
         if(randomPowerup == 0) { presentField.MultiplyPresents(); powerupText.text = presentMultiplyText; }
         if(randomPowerup == 1) { presentField.MultiplyRotationSpeed(); powerupText.text = rotationText; }
         if(randomPowerup == 2) { presentField.IncreaseMoveSpeed(); powerupText.text = speedText; }
-        if(randomPowerup == 3) { presentField.IncreaseTreeHp(); powerupText.text = repairText; }
+        //if(randomPowerup == 3) { presentField.IncreaseTreeHp(); powerupText.text = repairText; }
         if(randomPowerup == 4) { presentField.IncreaseLevel(); powerupText.text = levelUpText; }
         Invoke(nameof(ResetPowerupText), 2);
     }

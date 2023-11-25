@@ -11,6 +11,7 @@ public class PresentField : MonoBehaviour
     [SerializeField] ChristmasTree christmasTree;
     [SerializeField] TextMeshProUGUI powerupText;
     [SerializeField] CinemachineVirtualCamera virtualCamera;
+    [SerializeField] AudioPlayer audioPlayer;
 
     [Header("Variables")]
     [SerializeField] float rotationSpeed = 50f;
@@ -88,6 +89,7 @@ public class PresentField : MonoBehaviour
     public void ReducePresents()
     {
         numberOfPresents--;
+        audioPlayer.PlayHitClip();
     }
 
     public void MultiplyPresents()
