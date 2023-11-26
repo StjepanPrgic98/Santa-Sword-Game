@@ -25,6 +25,7 @@ public class Powerup : MonoBehaviour
     const string repairText = "+ Tree HP!";
     const string speedText = "+ Player Speed!";
     const string levelUpText = "+ Present Level!";
+    const string doubleMoneyText = "Double Money For 30 Seconds!";
 
     int minRange = 0;
     int maxRange = 0;
@@ -44,6 +45,7 @@ public class Powerup : MonoBehaviour
         if (speedPowerup) { presentField.IncreaseMoveSpeed(); }
         if (repairPowerup) { presentField.IncreaseTreeHp(); }
         if (levelUpPowerup) { presentField.IncreaseLevel(); }
+        if (moneyPowerup) { CurrencyManager.SetDoubleCurrencyEarned(true); }
         transform.position = outOfBoundsPosition;
 
         SetRespawnTime();
@@ -82,6 +84,7 @@ public class Powerup : MonoBehaviour
         if (repairPowerup) { powerupText.text = repairText; }
         if (speedPowerup) { powerupText.text = speedText; }
         if (levelUpPowerup) { powerupText.text = levelUpText; }
+        if (moneyPowerup) { powerupText.text = doubleMoneyText; }
         Invoke(nameof(ResetPowerupText), 2);
     }
 
@@ -96,7 +99,7 @@ public class Powerup : MonoBehaviour
         if(randomPowerup == 0) { presentField.MultiplyPresents(); powerupText.text = presentMultiplyText; }
         if(randomPowerup == 1) { presentField.MultiplyRotationSpeed(); powerupText.text = rotationText; }
         if(randomPowerup == 2) { presentField.IncreaseMoveSpeed(); powerupText.text = speedText; }
-        //if(randomPowerup == 3) { presentField.IncreaseTreeHp(); powerupText.text = repairText; }
+        if(randomPowerup == 3) { presentField.IncreaseTreeHp(); powerupText.text = repairText; }
         if(randomPowerup == 4) { presentField.IncreaseLevel(); powerupText.text = levelUpText; }
         Invoke(nameof(ResetPowerupText), 2);
     }
@@ -132,6 +135,12 @@ public class Powerup : MonoBehaviour
             if (ShopManager.LevelOfChristmasTreeRepairPowerup == 0) { minRange = 0; maxRange = 0; return; }
             minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfChristmasTreeRepairPowerup + 5);
             maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfChristmasTreeRepairPowerup + 25);
+        }
+        if (moneyPowerup)
+        {
+            if(ShopManager.LevelOfDoubleMoneyPowerup == 0) { minRange = 0; maxRange = 0; return; }
+            minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfDoubleMoneyPowerup + 15);
+            maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfDoubleMoneyPowerup + 25);
         }
     }
 

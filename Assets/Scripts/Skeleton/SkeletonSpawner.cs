@@ -22,7 +22,7 @@ public class SkeletonSpawner : MonoBehaviour
 
     void SpawnSkeletonAtRandomTime()
     {
-        int randomSpawnTime = Random.Range(40, 100);
+        int randomSpawnTime = Random.Range(50, 120);
         StartCoroutine(WaitAndSpawnSkeleton(randomSpawnTime));
     }
 

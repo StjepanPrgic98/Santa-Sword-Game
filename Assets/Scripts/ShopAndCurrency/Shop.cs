@@ -21,7 +21,8 @@ public class Shop : MonoBehaviour
     const string multiplyRotationSpeedDescription = "Multiplies rotation speed by 1.1x";
     const string increasePlayerSpeedDescription = "Increases player speed";
     const string increaseLevelDescription = "Increases present level";
-    const string repairDescription = "Restores Christmas Tree HP by 300";
+    const string repairDescription = "Restores Christmas Tree HP by 150";
+    const string doubleMoneyDescription = "Doubles money earned for 30 seconds";
 
     const string upgradeSucces = "Upgraded!";
     const string notEnoughMoney = "Not enough money!";
@@ -62,6 +63,11 @@ public class Shop : MonoBehaviour
                 description.text = repairDescription;
                 CheckForPowerupUnlockedLevels(ShopManager.LevelOfChristmasTreeRepairPowerup);
                 GetPowerupPrice(ShopManager.LevelOfChristmasTreeRepairPowerup, ShopManager.BasePowerupLevelPrice);
+                break;
+            case "DoubleMoney":
+                description.text = doubleMoneyDescription;
+                CheckForPowerupUnlockedLevels(ShopManager.LevelOfDoubleMoneyPowerup);
+                GetPowerupPrice(ShopManager.LevelOfDoubleMoneyPowerup, ShopManager.BasePowerupLevelPrice);
                 break;
         }
         powerUpToUpgrade = powerupName;
@@ -112,6 +118,9 @@ public class Shop : MonoBehaviour
                 break;
             case "Repair":
                 ShopManager.IncreaseLevelOfChristmasTreeRepairPowerup();
+                break;
+            case "DoubleMoney":
+                ShopManager.IncreaseLevelOfDoubleMoneyPowerup();
                 break;
         }
 

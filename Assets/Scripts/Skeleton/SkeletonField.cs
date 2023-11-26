@@ -5,6 +5,9 @@ public class SkeletonField : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] List<GameObject> bats;
+    [SerializeField] List<Sprite> levelNumberSprites;
+    [SerializeField] SpriteRenderer levelNumberSpriteRenderer;
+    [SerializeField] SpriteRenderer levelNumberSpriteRendererMinimap;
 
     [Header("Variables")]
     [SerializeField] float rotationSpeed = 50f;
@@ -38,6 +41,8 @@ public class SkeletonField : MonoBehaviour
             GameObject newObject = Instantiate(bats[level], newPosition, Quaternion.identity);
             newObject.transform.parent = transform;
         }
+
+        UpdateLevelNumber();
     }
 
     public void SetNumberOfBatsOnSpawn(int bats)
@@ -52,5 +57,11 @@ public class SkeletonField : MonoBehaviour
     {
         if(batLevel > 5) { batLevel = 5; }
         level = batLevel;
+    }
+
+    void UpdateLevelNumber()
+    {
+        levelNumberSpriteRenderer.sprite = levelNumberSprites[level];
+        levelNumberSpriteRendererMinimap.sprite = levelNumberSprites[level];
     }
 }

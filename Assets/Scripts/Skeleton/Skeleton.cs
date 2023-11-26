@@ -10,7 +10,7 @@ public class Skeleton : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Present" || collision.tag == "Player")
+        if(collision.tag == "Present")
         {
             PlayDeathAnimation();
             Destroy(gameObject, 1);

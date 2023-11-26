@@ -10,6 +10,7 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField] AudioClip goblinDeathClip;
     [SerializeField] AudioClip skeletonDeathClip;
     [SerializeField] AudioClip collectPowerupClip;
+    [SerializeField] AudioClip christmasTreeExplosionpClip;
 
     public void PlayLevelUpClip()
     {
@@ -30,5 +31,9 @@ public class AudioPlayer : MonoBehaviour
     public void PlayCollectPowerupClip()
     {
         AudioSource.PlayClipAtPoint(collectPowerupClip, transform.position, 1);
+    }
+    public void PlayChristmasTreeExplosionClip()
+    {
+        AudioSource.PlayClipAtPoint(christmasTreeExplosionpClip, transform.position, 1);
     }
 }

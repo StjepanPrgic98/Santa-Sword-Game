@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -10,8 +11,11 @@ public class PresentField : MonoBehaviour
     [SerializeField] PlayerMovement player;
     [SerializeField] ChristmasTree christmasTree;
     [SerializeField] TextMeshProUGUI powerupText;
+    [SerializeField] TextMeshProUGUI doubleMoneyText;
     [SerializeField] CinemachineVirtualCamera virtualCamera;
     [SerializeField] AudioPlayer audioPlayer;
+    [SerializeField] List<Sprite> levelNumberSprites;
+    [SerializeField] SpriteRenderer levelNumberSpriteRenderer;
 
     [Header("Variables")]
     [SerializeField] float rotationSpeed = 50f;
@@ -19,15 +23,18 @@ public class PresentField : MonoBehaviour
     [SerializeField] float initialCircleRadius = 2f;
 
     int level = 0;
+    float doubleMoneyTimer = 30;
 
     void Start()
     {
         ArrangeObjects();
+        CurrencyManager.SetDoubleCurrencyEarned(false);
     }
 
     void Update()
     {
         transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+        UpdateDoubleMoneyTimerAndText();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -62,25 +69,25 @@ public class PresentField : MonoBehaviour
         }
 
         SetVirutalCameraDistance();
+        UpdateLevelNumber();
     }
 
     public void IncreaseLevel()
     {
+        if(level >= 5) { Mathf.RoundToInt(numberOfPresents * 1.5f); return; }
         level++;
         numberOfPresents = Mathf.RoundToInt(numberOfPresents / 1.5f);
         if(numberOfPresents <= 0) { numberOfPresents = 1; }
-        if(level > 5) { level = 5; numberOfPresents += 2; }
         rotationSpeed /= 1.2f;
         ArrangeObjects();
     }
 
     void DecreaseLevel()
     {
+        if(level <= 0) { return; }
         level--;
         numberOfPresents = Mathf.RoundToInt(numberOfPresents * 1.5f);
-        if (numberOfPresents == 0) { numberOfPresents = 1; }
         if (level > 5) { level = 4; }
-        if(level < 0) { level = 0; }
         rotationSpeed *= 1.1f;
         ArrangeObjects();
         WritePowerupText("- Level!");
@@ -137,8 +144,33 @@ public class PresentField : MonoBehaviour
     {
         if(numberOfPresents < 15) { virtualCamera.m_Lens.OrthographicSize = 1.9f; }
         if(numberOfPresents > 15) { virtualCamera.m_Lens.OrthographicSize = 2.5f; }
-        if (level == 4 || level == 5 && numberOfPresents > 15) { virtualCamera.m_Lens.OrthographicSize = 3f; }
-        if (numberOfPresents > 30) { virtualCamera.m_Lens.OrthographicSize = 3.5f; }
+        if(numberOfPresents > 30) { virtualCamera.m_Lens.OrthographicSize = 3.5f; }
+        if (level == 5 && numberOfPresents > 8) { virtualCamera.m_Lens.OrthographicSize = 3.5f; }
+        if (level == 5 && numberOfPresents > 15) { virtualCamera.m_Lens.OrthographicSize = 4f; }
+        if (level == 5 && numberOfPresents > 25) { virtualCamera.m_Lens.OrthographicSize = 5.5f; }
+    }
+
+    
+
+    void UpdateLevelNumber()
+    {
+        levelNumberSpriteRenderer.sprite = levelNumberSprites[level];
+    }
+
+    void UpdateDoubleMoneyTimerAndText()
+    {
+        if (CurrencyManager.DoubleCurrency)
+        {
+            doubleMoneyTimer -= 1 * Time.deltaTime;
+            
+            doubleMoneyText.text = "Double money: " + (int)doubleMoneyTimer;
+        }
+        if(doubleMoneyTimer <= 0) 
+        { 
+            CurrencyManager.SetDoubleCurrencyEarned(false); 
+            doubleMoneyTimer = 30;
+            doubleMoneyText.text = "";
+        }
     }
 
     float circleRadius; // Moved the declaration of circleRadius to the class level

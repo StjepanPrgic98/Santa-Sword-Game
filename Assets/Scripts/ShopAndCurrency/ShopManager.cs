@@ -9,6 +9,7 @@ public static class ShopManager
     public static int LevelOfPlayerSpeedPowerup { get; private set; } = 0;
     public static int LevelOfLevelUpPowerup { get; private set; } = 0;
     public static int LevelOfChristmasTreeRepairPowerup { get; private set; } = 0;
+    public static int LevelOfDoubleMoneyPowerup { get; set; } = 1;
 
     public static int BasePowerupLevelPrice { get; set; } = 50;
 
@@ -31,6 +32,10 @@ public static class ShopManager
     public static void IncreaseLevelOfChristmasTreeRepairPowerup()
     {
         LevelOfChristmasTreeRepairPowerup++;
+    }
+    public static void IncreaseLevelOfDoubleMoneyPowerup()
+    {
+        LevelOfDoubleMoneyPowerup++;
     }
 
 }

@@ -10,6 +10,7 @@ public class ChristmasTree : MonoBehaviour
     [SerializeField] Slider hpSlider;
     [SerializeField] TextMeshProUGUI blackHpText;
     [SerializeField] TextMeshProUGUI loadingShopText;
+    [SerializeField] AudioPlayer audioPlayer;
     [SerializeField] GameObject nukeExplosion;
 
     [Header("Components")]
@@ -65,13 +66,14 @@ public class ChristmasTree : MonoBehaviour
 
     public void IncreaseTreeHp()
     {
-        hp += 300;
-        if (hp > 1000) { hp = 1000; } 
-        UpdateHpSlider();
+        hp += 150;
+        if (hp > 1000) { hp = 1000; }
+        UpdateHpDisplays();
     }
 
     void DeathAnimation()
-    {    
+    {
+        audioPlayer.PlayChristmasTreeExplosionClip();
         GameObject nukeExplosionObject = Instantiate(nukeExplosion, transform.position, Quaternion.identity);
         Destroy(nukeExplosionObject, 1);
     }
