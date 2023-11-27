@@ -18,15 +18,14 @@ public class GoblinSpawner : MonoBehaviour
         int randomDelay = Random.Range(30, 100);
         StartCoroutine(WaitAndSpawnGoblinsAtRandomTime(randomDelay));
     }
-    void SpawnGoblins()
-    {
-        SetNumberOfGoblinsToSpawn();
-    }
-
     IEnumerator WaitAndSpawnGoblinsAtRandomTime(int delay)
     {
         yield return new WaitForSeconds(delay);
         SpawnGoblins();
+    }
+    void SpawnGoblins()
+    {
+        SetNumberOfGoblinsToSpawn();
     }
 
     void SetNumberOfGoblinsToSpawn()
@@ -41,11 +40,6 @@ public class GoblinSpawner : MonoBehaviour
         StartCoroutine(WaitAndInstantiateGoblins(randomDelay, numberOfGoblins));
     }
 
-    void InstantiateGoblin()
-    {
-        Instantiate(goblin, transform.position, Quaternion.identity);
-    }
-
     IEnumerator WaitAndInstantiateGoblins(int delay, int numberOfGoblins)
     {
         yield return new WaitForSeconds(delay);
@@ -53,9 +47,15 @@ public class GoblinSpawner : MonoBehaviour
         for (int i = 0; i < numberOfGoblins; i++)
         {
             InstantiateGoblin();
-            yield return new WaitForSeconds(0.5f); // Adjust this delay as needed
+            yield return new WaitForSeconds(0.5f);
         }
 
-        SpawnGoblinsAtRandomTime();
+        SpawnGoblinsAtRandomTime(); // Called for continuos loop
     }
+
+    void InstantiateGoblin()
+    {
+        Instantiate(goblin, transform.position, Quaternion.identity);
+    }
+
 }

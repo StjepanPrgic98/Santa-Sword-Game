@@ -130,6 +130,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1162570387}
     m_Modifications:
+    - target: {fileID: 224664007188738312, guid: 72dfd4542717baf44bf52c3ab34384b5, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 224664007188738312, guid: 72dfd4542717baf44bf52c3ab34384b5, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1826982695
+      objectReference: {fileID: 0}
     - target: {fileID: 224664007188738313, guid: 72dfd4542717baf44bf52c3ab34384b5, type: 3}
       propertyPath: m_Name
       value: PlayerLevelNumber
@@ -611,6 +619,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6585a317995a0ec4aaf95b489f47c835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1162570388}
+  christmasTree: {fileID: 1016523816}
+  virtualCamera: {fileID: 640931185}
+  audioPlayer: {fileID: 661303653}
   presents:
   - {fileID: 9076064083690742524, guid: 3ab0d0dfc74f19740b0a07b9b45108b4, type: 3}
   - {fileID: 4723695387634429966, guid: fc4c718d8b17f67438dda783b2db71b4, type: 3}
@@ -618,12 +630,7 @@ MonoBehaviour:
   - {fileID: 5796377570946579506, guid: 6f54c17c471b0674788cc11f929f8471, type: 3}
   - {fileID: 4411181514062551367, guid: 6f0ffc50c33ac534ea02ce8c2ce529b0, type: 3}
   - {fileID: 3006539145041018485, guid: 5b959627cbda7494281e747dd3df2649, type: 3}
-  player: {fileID: 1162570388}
-  christmasTree: {fileID: 1016523816}
-  powerupText: {fileID: 673398039}
-  doubleMoneyText: {fileID: 1248442920}
-  virtualCamera: {fileID: 640931185}
-  audioPlayer: {fileID: 661303653}
+  levelNumberSpriteRenderer: {fileID: 2049152911}
   levelNumberSprites:
   - {fileID: 369805921, guid: 3c4d70246f8a3c44c86a5249a7a81d1e, type: 3}
   - {fileID: 1136356373, guid: 3c4d70246f8a3c44c86a5249a7a81d1e, type: 3}
@@ -631,7 +638,8 @@ MonoBehaviour:
   - {fileID: -1170144394, guid: 3c4d70246f8a3c44c86a5249a7a81d1e, type: 3}
   - {fileID: -670216304, guid: 3c4d70246f8a3c44c86a5249a7a81d1e, type: 3}
   - {fileID: 1976116336, guid: 3c4d70246f8a3c44c86a5249a7a81d1e, type: 3}
-  levelNumberSpriteRenderer: {fileID: 2049152911}
+  powerupText: {fileID: 673398039}
+  doubleMoneyText: {fileID: 1248442920}
   rotationSpeed: 150
   numberOfPresents: 1
   initialCircleRadius: 0.5
@@ -1189,6 +1197,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeleton: {fileID: 2084094144842933570, guid: 43520363794bc80489e84038692a0a81, type: 3}
+  baseNumberOfBats: 2
+  baseRotationSpeed: 50
 --- !u!212 &526671411
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7340,14 +7350,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6486de36dfd00b644b43de5c73567ca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nukeExplosion: {fileID: 8032863688965307313, guid: 7ca27b428b611424ea53d0e6f4be99ae, type: 3}
+  audioPlayer: {fileID: 661303653}
   hpSlider: {fileID: 1462788990}
   blackHpText: {fileID: 1066129414}
   loadingShopText: {fileID: 862767112}
-  audioPlayer: {fileID: 661303653}
-  nukeExplosion: {fileID: 8032863688965307313, guid: 7ca27b428b611424ea53d0e6f4be99ae, type: 3}
   boxCollider: {fileID: 1016523813}
   spriteRenderer: {fileID: 1016523814}
   hp: 100
+  maxHp: 1000
+  turnOffSpriteRendererTime: 0.7
+  loadShopLevelTime: 4
 --- !u!1 &1021916671
 GameObject:
   m_ObjectHideFlags: 0
@@ -104433,6 +104446,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeleton: {fileID: 2084094144842933570, guid: 43520363794bc80489e84038692a0a81, type: 3}
+  baseNumberOfBats: 2
+  baseRotationSpeed: 50
 --- !u!212 &1111406158
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -110192,6 +110207,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeleton: {fileID: 2084094144842933570, guid: 43520363794bc80489e84038692a0a81, type: 3}
+  baseNumberOfBats: 2
+  baseRotationSpeed: 50
 --- !u!212 &1904760435
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -110570,6 +110587,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeleton: {fileID: 2084094144842933570, guid: 43520363794bc80489e84038692a0a81, type: 3}
+  baseNumberOfBats: 2
+  baseRotationSpeed: 50
 --- !u!212 &1966201845
 SpriteRenderer:
   m_ObjectHideFlags: 0

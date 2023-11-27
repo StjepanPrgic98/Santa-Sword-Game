@@ -34,6 +34,6 @@ public class AudioPlayer : MonoBehaviour
     }
     public void PlayChristmasTreeExplosionClip()
     {
-        AudioSource.PlayClipAtPoint(christmasTreeExplosionpClip, transform.position, 1);
+        AudioSource.PlayClipAtPoint(christmasTreeExplosionpClip, transform.position);
     }
 }

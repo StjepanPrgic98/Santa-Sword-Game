@@ -9,14 +9,23 @@ public class GoblinMovement : MonoBehaviour
     [SerializeField] Rigidbody2D rigidBody;
 
     [Header("Variables")]
-    [SerializeField] float moveSpeed = 5f;
-    [SerializeField] Vector3 targetPosition = new Vector3(-1.565f, -0.7399999f);
+    [SerializeField] float moveSpeed;
+    [SerializeField] Vector3 targetPosition;
 
     Vector3 direction;
 
     void Update()
     {
         MoveTowardsTargetPosition();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "ChristmasTree")
+        {
+            rigidBody.isKinematic = true;
+            this.enabled = false;
+        }
     }
 
     void MoveTowardsTargetPosition()
@@ -33,15 +42,6 @@ public class GoblinMovement : MonoBehaviour
         else
         {
             spriteRenderer.flipX = true;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "ChristmasTree")
-        {
-            rigidBody.isKinematic = true;
-            this.enabled = false;
         }
     }
 }

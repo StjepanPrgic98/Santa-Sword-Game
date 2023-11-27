@@ -8,19 +8,32 @@ public class Skeleton : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] CapsuleCollider2D capsuleCollider;
 
+    [Header("Variables")]
+    [SerializeField] float DestroySkeletonTime;   
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Present")
         {
-            PlayDeathAnimation();
-            Destroy(gameObject, 1);
-            FindObjectOfType<KillPowerup>().KillSkeleton();
+            DestroySkeleton();
+            IncreaseSkeletonKillCountForRandomPowerup();     
         }
+    }
+
+    void DestroySkeleton()
+    {
+        capsuleCollider.enabled = false;
+        Destroy(gameObject, DestroySkeletonTime);
+        PlayDeathAnimation();
     }
 
     void PlayDeathAnimation()
     {
         animator.SetBool("isDead", true);
-        capsuleCollider.enabled = false;
+    }
+
+    void IncreaseSkeletonKillCountForRandomPowerup()
+    {
+        FindObjectOfType<KillPowerup>().KillSkeleton();
     }
 }

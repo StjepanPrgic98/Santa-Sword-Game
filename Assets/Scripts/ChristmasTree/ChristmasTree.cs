@@ -7,45 +7,80 @@ using UnityEngine.UI;
 public class ChristmasTree : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] GameObject nukeExplosion;
+    [SerializeField] AudioPlayer audioPlayer;
     [SerializeField] Slider hpSlider;
     [SerializeField] TextMeshProUGUI blackHpText;
     [SerializeField] TextMeshProUGUI loadingShopText;
-    [SerializeField] AudioPlayer audioPlayer;
-    [SerializeField] GameObject nukeExplosion;
-
+    
     [Header("Components")]
     [SerializeField] BoxCollider2D boxCollider;
     [SerializeField] SpriteRenderer spriteRenderer;
 
     [Header("Variables")]
-    [SerializeField] int hp = 1000;
+    [SerializeField] int hp;
+    [SerializeField] int maxHp;
+    [SerializeField] float turnOffSpriteRendererTime;
+    [SerializeField] float loadShopLevelTime;
 
-    int maxHp = 1000;
+    const string loadShopLevelText = "Loading Shop...";
 
     private void Start()
     {
         UpdateHpDisplays();
     }
 
-
-    public void ReduceHp()
-    {
-        if(hp <= 0) 
-        {
-            DeathAnimation();
-            boxCollider.enabled = false;
-            Invoke(nameof(DestroyTree), 0.7f);
-            loadingShopText.text = "Loading Shop...";
-            Invoke(nameof(LoadShopLevel), 4);
-            return; 
-        }
-        hp--;
-        UpdateHpDisplays();
-    }
-
     public int GetHp()
     {
         return hp;
+    }
+
+    public void ReduceHp()
+    {
+        if(hp <= 0) { DestroyChristmasTree(); return; }
+ 
+        hp--;
+        UpdateHpDisplays();
+    }
+    public void IncreaseTreeHp(int treeRepairAmount)
+    {
+        hp += treeRepairAmount;
+        if (hp > maxHp) { hp = maxHp; }
+        UpdateHpDisplays();
+    }
+
+    void DestroyChristmasTree()
+    {
+        boxCollider.enabled = false;
+        DeathAnimation();
+        Invoke(nameof(TurnOffTreeSpriteRenderer), turnOffSpriteRendererTime);
+        LoadShop();
+    }
+    void DeathAnimation()
+    {
+        audioPlayer.PlayChristmasTreeExplosionClip();
+        InstantiateExplosion();
+    }
+
+    void InstantiateExplosion()
+    {
+        GameObject nukeExplosionObject = Instantiate(nukeExplosion, transform.position, Quaternion.identity);
+        Destroy(nukeExplosionObject, 1);
+    }
+
+    void TurnOffTreeSpriteRenderer()
+    {
+        spriteRenderer.enabled = false;
+    }
+
+    void LoadShop()
+    {
+        loadingShopText.text = loadShopLevelText;
+        Invoke(nameof(LoadShopLevel), loadShopLevelTime);
+    }
+    void LoadShopLevel()
+    {
+        LevelManager.LoadLevel("Shop");
     }
 
     void UpdateHpDisplays()
@@ -62,30 +97,6 @@ public class ChristmasTree : MonoBehaviour
     void UpdateHpText()
     {
         blackHpText.text = hp + "/" + maxHp;
-    }
-
-    public void IncreaseTreeHp()
-    {
-        hp += 150;
-        if (hp > 1000) { hp = 1000; }
-        UpdateHpDisplays();
-    }
-
-    void DeathAnimation()
-    {
-        audioPlayer.PlayChristmasTreeExplosionClip();
-        GameObject nukeExplosionObject = Instantiate(nukeExplosion, transform.position, Quaternion.identity);
-        Destroy(nukeExplosionObject, 1);
-    }
-
-    void DestroyTree()
-    {
-        spriteRenderer.enabled = false;
-    }
-
-    void LoadShopLevel()
-    {
-        LevelManager.LoadLevel("Shop");
     }
 
 }

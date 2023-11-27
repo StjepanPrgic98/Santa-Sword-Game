@@ -6,9 +6,11 @@ public class SkeletonSpawner : MonoBehaviour
     [Header("References")]
     [SerializeField] GameObject skeleton;
 
+    [Header("Variables")]
+    [SerializeField] int baseNumberOfBats;
+    [SerializeField] float baseRotationSpeed;
+
     int cycle = 1;
-    int baseNumberOfBats = 2;
-    float baseRotationSpeed = 50;
 
     private void Start()
     {

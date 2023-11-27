@@ -6,6 +6,7 @@ public class Bat : MonoBehaviour
 {
     [Header("Variables")]
     [SerializeField] int level;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Present")
@@ -14,6 +15,7 @@ public class Bat : MonoBehaviour
 
             if(level <= present.GetLevel()) { Destroy(gameObject); }
         }
+
         if(collision.tag == "Player")
         {
             Destroy(gameObject);

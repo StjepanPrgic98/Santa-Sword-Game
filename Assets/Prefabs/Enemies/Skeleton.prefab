@@ -255,6 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 770129988}
   capsuleCollider: {fileID: 770129992}
+  DestroySkeletonTime: 0.5
 --- !u!70 &770129992
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -463,6 +464,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2812746767600761852}
     m_Modifications:
+    - target: {fileID: 224664007188738312, guid: 72dfd4542717baf44bf52c3ab34384b5, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224664007188738312, guid: 72dfd4542717baf44bf52c3ab34384b5, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 2000931117
+      objectReference: {fileID: 0}
     - target: {fileID: 224664007188738313, guid: 72dfd4542717baf44bf52c3ab34384b5, type: 3}
       propertyPath: m_Name
       value: SkeletonLevelNumber

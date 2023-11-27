@@ -7,8 +7,8 @@ public class Powerup : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] PresentField presentField;
-    [SerializeField] TextMeshProUGUI powerupText;
     [SerializeField] AudioPlayer audioPlayer;
+    [SerializeField] TextMeshProUGUI powerupText;
 
     [Header("Variables")]
     [SerializeField] bool presentMultiplyPowerup;
@@ -18,7 +18,7 @@ public class Powerup : MonoBehaviour
     [SerializeField] bool moneyPowerup;
     [SerializeField] bool speedPowerup;
     [SerializeField] List<Transform> spawnLocations;
-    [SerializeField] Vector3 outOfBoundsPosition = new Vector2(100, 100);
+    [SerializeField] Vector3 outOfBoundsPosition;
 
     const string presentMultiplyText = "+ Presents!";
     const string rotationText = "+ Rotation Speed!";
@@ -33,31 +33,68 @@ public class Powerup : MonoBehaviour
     int baseMinRange = 50;
     int baseMaxRange = 100;
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "Powerup") { SpawnAtRandomLocation(); }
-        if(collision.tag != "Player") { return; }
-
-        DisplayPowerupText();
-
-        if (presentMultiplyPowerup) { presentField.MultiplyPresents(); }
-        if (rotationPowerup) { presentField.MultiplyRotationSpeed(); }
-        if (speedPowerup) { presentField.IncreaseMoveSpeed(); }
-        if (repairPowerup) { presentField.IncreaseTreeHp(); }
-        if (levelUpPowerup) { presentField.IncreaseLevel(); }
-        if (moneyPowerup) { CurrencyManager.SetDoubleCurrencyEarned(true); }
-        transform.position = outOfBoundsPosition;
-
-        SetRespawnTime();
-        audioPlayer.PlayCollectPowerupClip();
-        
-    }
-
     private void Start()
     {
         SetMinAndMaxRangeOfTimeToRespawn();
         if (minRange == 0 && maxRange == 0) { return; }
         SpawnAtRandomLocation();
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Powerup") { SpawnAtRandomLocation(); }
+        if (collision.tag != "Player") { return; }
+
+        if (presentMultiplyPowerup) { ActivatePresentMultiplyPowerup(); }
+        if (rotationPowerup) { ActivateRotationSpeedPowerup(); }
+        if (speedPowerup) { ActivatePlayerSpeedPowerup(); }
+        if (repairPowerup) { ActivateRepairPowerup(); }
+        if (levelUpPowerup) { ActivateLevelUpPowerup(); }
+        if (moneyPowerup) { ActivateDoubleMoneyPowerup(); }
+        transform.position = outOfBoundsPosition;
+
+        SetRespawnTime();
+        audioPlayer.PlayCollectPowerupClip();
+
+    }
+    public void GiveRandomPowerup()
+    {
+        int randomPowerup = Random.Range(0, 5);
+        if (randomPowerup == 0) { ActivatePresentMultiplyPowerup(); }
+        if (randomPowerup == 1) { ActivateRotationSpeedPowerup(); }
+        if (randomPowerup == 2) { ActivatePlayerSpeedPowerup(); }
+        if (randomPowerup == 3) { ActivateRepairPowerup(); }
+        if (randomPowerup == 4) { ActivateDoubleMoneyPowerup(); }
+    }
+
+    void ActivatePresentMultiplyPowerup()
+    {
+        presentField.MultiplyPresents(); 
+        DisplayPowerupText(presentMultiplyText);
+    }
+    void ActivateRotationSpeedPowerup()
+    {
+        presentField.MultiplyRotationSpeed(); 
+        DisplayPowerupText(rotationText);
+    }
+    void ActivatePlayerSpeedPowerup()
+    {
+        presentField.IncreaseMoveSpeed(); 
+        DisplayPowerupText(speedText);
+    }
+    void ActivateRepairPowerup()
+    {
+        presentField.IncreaseTreeHp(); 
+        DisplayPowerupText(repairText);
+    }
+    void ActivateLevelUpPowerup()
+    {
+        presentField.IncreaseLevel(); 
+        DisplayPowerupText(levelUpText);
+    }
+    void ActivateDoubleMoneyPowerup()
+    {
+        CurrencyManager.SetDoubleCurrencyEarned(true); 
+        DisplayPowerupText(doubleMoneyText);
     }
 
     void SetRespawnTime()
@@ -77,14 +114,9 @@ public class Powerup : MonoBehaviour
         transform.position = spawnLocations[randomNumber].position;
     }
 
-    void DisplayPowerupText()
+    void DisplayPowerupText(string text)
     {
-        if (presentMultiplyPowerup) { powerupText.text = presentMultiplyText; }
-        if (rotationPowerup) { powerupText.text = rotationText; }
-        if (repairPowerup) { powerupText.text = repairText; }
-        if (speedPowerup) { powerupText.text = speedText; }
-        if (levelUpPowerup) { powerupText.text = levelUpText; }
-        if (moneyPowerup) { powerupText.text = doubleMoneyText; }
+        powerupText.text = text;
         Invoke(nameof(ResetPowerupText), 2);
     }
 
@@ -93,55 +125,23 @@ public class Powerup : MonoBehaviour
         powerupText.text = "";
     }
 
-    public void GiveRandomPowerup()
-    {
-        int randomPowerup = Random.Range(0, 5);
-        if(randomPowerup == 0) { presentField.MultiplyPresents(); powerupText.text = presentMultiplyText; }
-        if(randomPowerup == 1) { presentField.MultiplyRotationSpeed(); powerupText.text = rotationText; }
-        if(randomPowerup == 2) { presentField.IncreaseMoveSpeed(); powerupText.text = speedText; }
-        if(randomPowerup == 3) { presentField.IncreaseTreeHp(); powerupText.text = repairText; }
-        if(randomPowerup == 4) { presentField.IncreaseLevel(); powerupText.text = levelUpText; }
-        Invoke(nameof(ResetPowerupText), 2);
-    }
-
     void SetMinAndMaxRangeOfTimeToRespawn()
     {
-        if (presentMultiplyPowerup)
-        {
-            if (ShopManager.LevelOfPresentMultiplyPowerup == 0) { minRange = 0; maxRange = 0; return; }
-            minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfPresentMultiplyPowerup + 5);
-            maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfPresentMultiplyPowerup + 25);
-        }
-        if (rotationPowerup)
-        {
-            if (ShopManager.LevelOfRotationSpeedPowerup == 0) { minRange = 0; maxRange = 0; return; }
-            minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfRotationSpeedPowerup + 5);
-            maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfRotationSpeedPowerup + 25);
-        }
-        if (speedPowerup)
-        {
-            if (ShopManager.LevelOfPlayerSpeedPowerup == 0) { minRange = 0; maxRange = 0; return; }
-            minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfPlayerSpeedPowerup + 5);
-            maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfPlayerSpeedPowerup + 25);
-        }
-        if (levelUpPowerup)
-        {
-            if (ShopManager.LevelOfLevelUpPowerup == 0) { minRange = 0; maxRange = 0; return; }
-            minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfLevelUpPowerup + 5);
-            maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfLevelUpPowerup + 25);
-        }
-        if (repairPowerup)
-        {
-            if (ShopManager.LevelOfChristmasTreeRepairPowerup == 0) { minRange = 0; maxRange = 0; return; }
-            minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfChristmasTreeRepairPowerup + 5);
-            maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfChristmasTreeRepairPowerup + 25);
-        }
-        if (moneyPowerup)
-        {
-            if(ShopManager.LevelOfDoubleMoneyPowerup == 0) { minRange = 0; maxRange = 0; return; }
-            minRange = Mathf.RoundToInt(baseMinRange / ShopManager.LevelOfDoubleMoneyPowerup + 15);
-            maxRange = Mathf.RoundToInt(baseMaxRange / ShopManager.LevelOfDoubleMoneyPowerup + 25);
-        }
+        if (presentMultiplyPowerup) { SetMinAndMaxRangeBasedOnPowerupLevel(ShopManager.LevelOfPresentMultiplyPowerup); }
+        if (rotationPowerup) { SetMinAndMaxRangeBasedOnPowerupLevel(ShopManager.LevelOfRotationSpeedPowerup); }  
+        if (speedPowerup) { SetMinAndMaxRangeBasedOnPowerupLevel(ShopManager.LevelOfPlayerSpeedPowerup); }   
+        if (levelUpPowerup) { SetMinAndMaxRangeBasedOnPowerupLevel(ShopManager.LevelOfLevelUpPowerup); }  
+        if (repairPowerup) { SetMinAndMaxRangeBasedOnPowerupLevel(ShopManager.LevelOfChristmasTreeRepairPowerup); }
+        if (moneyPowerup) { SetMinAndMaxRangeBasedOnPowerupLevel(ShopManager.LevelOfDoubleMoneyPowerup); }    
+    }
+
+    void SetMinAndMaxRangeBasedOnPowerupLevel(int level)
+    {
+        if (level == 0) { minRange = 0; maxRange = 0; return; }
+        minRange = Mathf.RoundToInt(baseMinRange / level + 5);
+        maxRange = Mathf.RoundToInt(baseMaxRange / level + 25);
+
+        if (moneyPowerup) { minRange = 31; } //Prevents activating up before last one runs out
     }
 
 

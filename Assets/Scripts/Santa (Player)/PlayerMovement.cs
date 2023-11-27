@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Animator animator;
 
     [Header("Variables")]
-    [SerializeField] float moveSpeed = 5;
+    [SerializeField] float moveSpeed;
 
 
     Vector2 moveInput;
@@ -20,6 +20,11 @@ public class PlayerMovement : MonoBehaviour
     {
         Run();
         FlipSprite();
+    }
+
+    public void IncreaseMoveSpeed(float ammount)
+    {
+        moveSpeed += ammount;
     }
 
     void Run()
@@ -48,11 +53,6 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isWalking", true);
         }
-    }
-
-    public void IncreaseMoveSpeed(float ammount)
-    {
-        moveSpeed += ammount;
     }
     void OnMove(InputValue value)
     {

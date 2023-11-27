@@ -7,16 +7,15 @@ using UnityEngine.UI;
 public class Shop : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] GameObject upgradeButton;
+    [SerializeField] Sprite levelUnlockedSprite;
+    [SerializeField] Sprite lockedLevelSprite;
+    [SerializeField] List<Image> levelImages;
     [SerializeField] TextMeshProUGUI description;
     [SerializeField] TextMeshProUGUI price;
     [SerializeField] TextMeshProUGUI shopText;
     [SerializeField] TextMeshProUGUI moneyOwnedText;
-    [SerializeField] GameObject upgradeButton;
-    [SerializeField] List<Image> levelImages;
-    [SerializeField] Sprite levelUnlockedSprite;
-    [SerializeField] Sprite lockedLevelSprite;
-
-
+   
     const string multiplyPowerupDescription = "Multiplies presents by 1.5x";
     const string multiplyRotationSpeedDescription = "Multiplies rotation speed by 1.1x";
     const string increasePlayerSpeedDescription = "Increases player speed";

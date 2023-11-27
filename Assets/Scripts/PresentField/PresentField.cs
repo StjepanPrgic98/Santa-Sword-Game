@@ -7,33 +7,34 @@ using UnityEngine;
 public class PresentField : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] List<GameObject> presents;
     [SerializeField] PlayerMovement player;
     [SerializeField] ChristmasTree christmasTree;
-    [SerializeField] TextMeshProUGUI powerupText;
-    [SerializeField] TextMeshProUGUI doubleMoneyText;
     [SerializeField] CinemachineVirtualCamera virtualCamera;
     [SerializeField] AudioPlayer audioPlayer;
-    [SerializeField] List<Sprite> levelNumberSprites;
+    [SerializeField] List<GameObject> presents;
     [SerializeField] SpriteRenderer levelNumberSpriteRenderer;
+    [SerializeField] List<Sprite> levelNumberSprites;
+    [SerializeField] TextMeshProUGUI powerupText;
+    [SerializeField] TextMeshProUGUI doubleMoneyText;
 
     [Header("Variables")]
-    [SerializeField] float rotationSpeed = 50f;
-    [SerializeField] int numberOfPresents = 15;
-    [SerializeField] float initialCircleRadius = 2f;
+    [SerializeField] float rotationSpeed;
+    [SerializeField] int numberOfPresents;
+    [SerializeField] float initialCircleRadius;
 
     int level = 0;
     float doubleMoneyTimer = 30;
+    float circleRadius;
 
     void Start()
     {
         ArrangeObjects();
-        CurrencyManager.SetDoubleCurrencyEarned(false);
+        TurnOffDoubleMoneyEarned();
     }
 
     void Update()
     {
-        transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+        RotatePresentField();
         UpdateDoubleMoneyTimerAndText();
     }
 
@@ -45,49 +46,26 @@ public class PresentField : MonoBehaviour
         }
     }
 
-    void ArrangeObjects()
-    {
-        foreach (Transform child in transform)
-        {
-            Destroy(child.gameObject);
-        }
-
-        CalculateOptimalRadius(); // Calculate the optimal radius before arranging objects
-
-        for (int i = 0; i < numberOfPresents; i++)
-        {
-            float angle = i * (360f / numberOfPresents);
-            float radians = Mathf.Deg2Rad * angle;
-
-            float x = transform.position.x + circleRadius * Mathf.Cos(radians);
-            float y = transform.position.y + circleRadius * Mathf.Sin(radians);
-
-            Vector3 newPosition = new Vector3(x, y, transform.position.z);
-
-            GameObject newObject = Instantiate(presents[level], newPosition, Quaternion.identity);
-            newObject.transform.parent = transform;
-        }
-
-        SetVirutalCameraDistance();
-        UpdateLevelNumber();
-    }
-
     public void IncreaseLevel()
     {
-        if(level >= 5) { Mathf.RoundToInt(numberOfPresents * 1.5f); return; }
+        if (level >= 5) { MultiplyPresents(); return; }
+
         level++;
         numberOfPresents = Mathf.RoundToInt(numberOfPresents / 1.5f);
-        if(numberOfPresents <= 0) { numberOfPresents = 1; }
+        if (numberOfPresents <= 0) { numberOfPresents = 1; }
+
         rotationSpeed /= 1.2f;
         ArrangeObjects();
     }
 
     void DecreaseLevel()
     {
-        if(level <= 0) { return; }
+        if (level <= 0) { return; }
+
         level--;
         numberOfPresents = Mathf.RoundToInt(numberOfPresents * 1.5f);
         if (level > 5) { level = 4; }
+
         rotationSpeed *= 1.1f;
         ArrangeObjects();
         WritePowerupText("- Level!");
@@ -108,26 +86,76 @@ public class PresentField : MonoBehaviour
 
     public void MultiplyRotationSpeed()
     {
-        rotationSpeed *= 1.2f;
+        rotationSpeed *= 1.1f;
     }
 
     public void IncreaseMoveSpeed()
     {
-        player.IncreaseMoveSpeed(0.5f);
+        player.IncreaseMoveSpeed(0.25f);
     }
 
     public void IncreaseTreeHp()
     {
-        christmasTree.IncreaseTreeHp();
+        christmasTree.IncreaseTreeHp(150);
     }
+
+    void RotatePresentField()
+    {
+        transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+    }
+
+    void TurnOffDoubleMoneyEarned()
+    {
+        CurrencyManager.SetDoubleCurrencyEarned(false);
+    }
+
+    void ArrangeObjects()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        CalculateOptimalRadius();
+
+        for (int i = 0; i < numberOfPresents; i++)
+        {
+            float angle = i * (360f / numberOfPresents);
+            float radians = Mathf.Deg2Rad * angle;
+
+            float x = transform.position.x + circleRadius * Mathf.Cos(radians);
+            float y = transform.position.y + circleRadius * Mathf.Sin(radians);
+
+            Vector3 newPosition = new Vector3(x, y, transform.position.z);
+
+            GameObject newObject = Instantiate(presents[level], newPosition, Quaternion.identity);
+            newObject.transform.parent = transform;
+        }
+
+        SetVirutalCameraDistance();
+        UpdateLevelNumber();
+    }
+
 
     void CalculateOptimalRadius()
     {
-        // Calculate the circumference needed to distribute presents evenly
         float circumference = numberOfPresents * (presents[level].transform.localScale.x * 2 * Mathf.PI);
-
-        // Calculate the optimal radius to achieve the desired circumference
         circleRadius = Mathf.Max(circumference / (2 * Mathf.PI), initialCircleRadius);
+    }
+
+    void SetVirutalCameraDistance()
+    {
+        if (numberOfPresents < 15) { virtualCamera.m_Lens.OrthographicSize = 1.9f; }
+        if (numberOfPresents > 15) { virtualCamera.m_Lens.OrthographicSize = 2.5f; }
+        if (numberOfPresents > 30) { virtualCamera.m_Lens.OrthographicSize = 3.5f; }
+        if (level == 5 && numberOfPresents > 8) { virtualCamera.m_Lens.OrthographicSize = 3.5f; }
+        if (level == 5 && numberOfPresents > 15) { virtualCamera.m_Lens.OrthographicSize = 4f; }
+        if (level == 5 && numberOfPresents > 25) { virtualCamera.m_Lens.OrthographicSize = 5.5f; }
+    }
+
+    void UpdateLevelNumber()
+    {
+        levelNumberSpriteRenderer.sprite = levelNumberSprites[level];
     }
 
     void WritePowerupText(string text)
@@ -140,38 +168,19 @@ public class PresentField : MonoBehaviour
         powerupText.text = "";
     }
 
-    void SetVirutalCameraDistance()
-    {
-        if(numberOfPresents < 15) { virtualCamera.m_Lens.OrthographicSize = 1.9f; }
-        if(numberOfPresents > 15) { virtualCamera.m_Lens.OrthographicSize = 2.5f; }
-        if(numberOfPresents > 30) { virtualCamera.m_Lens.OrthographicSize = 3.5f; }
-        if (level == 5 && numberOfPresents > 8) { virtualCamera.m_Lens.OrthographicSize = 3.5f; }
-        if (level == 5 && numberOfPresents > 15) { virtualCamera.m_Lens.OrthographicSize = 4f; }
-        if (level == 5 && numberOfPresents > 25) { virtualCamera.m_Lens.OrthographicSize = 5.5f; }
-    }
-
-    
-
-    void UpdateLevelNumber()
-    {
-        levelNumberSpriteRenderer.sprite = levelNumberSprites[level];
-    }
-
     void UpdateDoubleMoneyTimerAndText()
     {
         if (CurrencyManager.DoubleCurrency)
         {
-            doubleMoneyTimer -= 1 * Time.deltaTime;
-            
+            doubleMoneyTimer -= 1 * Time.deltaTime;   
             doubleMoneyText.text = "Double money: " + (int)doubleMoneyTimer;
-        }
-        if(doubleMoneyTimer <= 0) 
-        { 
-            CurrencyManager.SetDoubleCurrencyEarned(false); 
-            doubleMoneyTimer = 30;
-            doubleMoneyText.text = "";
+
+            if (doubleMoneyTimer <= 0)
+            {
+                CurrencyManager.SetDoubleCurrencyEarned(false);
+                doubleMoneyTimer = 30;
+                doubleMoneyText.text = "";
+            }
         }
     }
-
-    float circleRadius; // Moved the declaration of circleRadius to the class level
 }

@@ -10,9 +10,9 @@ public class SkeletonField : MonoBehaviour
     [SerializeField] SpriteRenderer levelNumberSpriteRendererMinimap;
 
     [Header("Variables")]
-    [SerializeField] float rotationSpeed = 50f;
-    [SerializeField] int numberOfBats = 15;
-    [SerializeField] float initialCircleRadius = 2f;
+    [SerializeField] float rotationSpeed;
+    [SerializeField] int numberOfBats;
+    [SerializeField] float initialCircleRadius;
 
     int level = 0;
 
@@ -24,6 +24,20 @@ public class SkeletonField : MonoBehaviour
     void Update()
     {
         transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
+    }
+
+    public void SetNumberOfBatsOnSpawn(int bats)
+    {
+        numberOfBats = bats;
+    }
+    public void SetBatRotationSpeedOnSpawn(float rotationS)
+    {
+        rotationSpeed = rotationS;
+    }
+    public void SetLevelOfBatsOnSpawn(int batLevel)
+    {
+        if (batLevel > 5) { batLevel = 5; }
+        level = batLevel;
     }
 
     void InstantiateBats()
@@ -43,20 +57,6 @@ public class SkeletonField : MonoBehaviour
         }
 
         UpdateLevelNumber();
-    }
-
-    public void SetNumberOfBatsOnSpawn(int bats)
-    {
-        numberOfBats = bats;
-    }
-    public void SetBatRotationSpeedOnSpawn(float rotationS)
-    {
-        rotationSpeed = rotationS;
-    }
-    public void SetLevelOfBatsOnSpawn(int batLevel)
-    {
-        if(batLevel > 5) { batLevel = 5; }
-        level = batLevel;
     }
 
     void UpdateLevelNumber()

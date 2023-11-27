@@ -12,9 +12,9 @@ public class Goblin : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Present" || collision.tag == "Player")
+        if (collision.tag == "Present")
         {
-            PlayDeathAnimation();
+            DestroyGoblin();
         }
 
         if (collision.tag == "ChristmasTree")
@@ -26,17 +26,27 @@ public class Goblin : MonoBehaviour
         }
     }
 
-    void PlayDeathAnimation()
+    void DestroyGoblin()
     {
-        animator.SetBool("isDead", true);
         boxCollider.enabled = false;
         Destroy(gameObject, 0.5f);
-        FindObjectOfType<KillPowerup>().KillGoblin();
+        PlayDeathAnimation();
+        IncreaseGoblinKillCountForRandomPowerup();
+    }
+
+    void PlayDeathAnimation()
+    {
+        SetAttackAnimation(false);
+        animator.SetBool("isDead", true);
     }
 
     void SetAttackAnimation(bool state)
     {
         animator.SetBool("isAttacking", state);
+    }
+    void IncreaseGoblinKillCountForRandomPowerup()
+    {
+        FindObjectOfType<KillPowerup>().KillGoblin();
     }
 
     IEnumerator DealDamageOverTime(float delay)
@@ -44,7 +54,14 @@ public class Goblin : MonoBehaviour
         while (animator.GetBool("isAttacking"))
         {
             yield return new WaitForSeconds(delay);
-            if (christmasTree.GetHp() <= 0) { christmasTree.ReduceHp(); SetAttackAnimation(false); PlayDeathAnimation(); break; }
+
+            if (christmasTree.GetHp() <= 0) 
+            { 
+                christmasTree.ReduceHp();
+                DestroyGoblin();
+                break; 
+            }
+
             christmasTree.ReduceHp();
         }
     }
