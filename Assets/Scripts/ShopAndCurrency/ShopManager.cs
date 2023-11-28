@@ -37,5 +37,14 @@ public static class ShopManager
     {
         LevelOfDoubleMoneyPowerup++;
     }
+    public static void UnlockEverything()
+    {
+        LevelOfPresentMultiplyPowerup = 5;
+        LevelOfRotationSpeedPowerup = 5;
+        LevelOfPlayerSpeedPowerup = 5;
+        LevelOfChristmasTreeRepairPowerup = 5;
+        LevelOfLevelUpPowerup = 5;
+        LevelOfDoubleMoneyPowerup = 5;
+    }
 
 }
