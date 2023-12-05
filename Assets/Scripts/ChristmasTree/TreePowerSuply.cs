@@ -64,11 +64,12 @@ public class TreePowerSuply : MonoBehaviour
     {
         powerSuplyUnits[currentPowerSuplyInRepair].RepairPowerSuply();
         LevelOfTreeDamageIncrease--;
+        if(LevelOfTreeDamageIncrease < 1) { LevelOfTreeDamageIncrease = 1; }
     }
 
     void BreakRandomPowerSuplyAtRandomTime()
     {
-        int randomDelay = Random.Range(15, 20);
+        int randomDelay = Random.Range(120, 150);
         Invoke(nameof(BreakRandomPowerSuply), randomDelay);
     }
 

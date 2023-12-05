@@ -24,7 +24,7 @@ public class SkeletonSpawner : MonoBehaviour
 
     void SpawnSkeletonAtRandomTime()
     {
-        int randomSpawnTime = Random.Range(50, 120);
+        int randomSpawnTime = Random.Range(40, 120);
         StartCoroutine(WaitAndSpawnSkeleton(randomSpawnTime));
     }
 
@@ -53,6 +53,6 @@ public class SkeletonSpawner : MonoBehaviour
     }
     int CalculateBatLevel()
     {
-        return Random.Range(cycle-1, cycle+1);
+        return Random.Range(cycle-1, cycle+2);
     }
 }

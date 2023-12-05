@@ -15,7 +15,7 @@ public class GoblinSpawner : MonoBehaviour
 
     public void SpawnGoblinsAtRandomTime()
     {
-        int randomDelay = Random.Range(30, 100);
+        int randomDelay = Random.Range(30, 80);
         StartCoroutine(WaitAndSpawnGoblinsAtRandomTime(randomDelay));
     }
     IEnumerator WaitAndSpawnGoblinsAtRandomTime(int delay)
@@ -36,7 +36,7 @@ public class GoblinSpawner : MonoBehaviour
         int numberOfGoblins = Random.Range(minRange, maxRange);
         int randomDelay = Random.Range(1, 3);
 
-        cycle++;
+        cycle +=2;
         StartCoroutine(WaitAndInstantiateGoblins(randomDelay, numberOfGoblins));
     }
 

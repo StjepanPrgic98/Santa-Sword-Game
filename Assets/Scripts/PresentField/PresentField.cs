@@ -63,7 +63,6 @@ public class PresentField : MonoBehaviour
         if (level <= 0) { return; }
 
         level--;
-        numberOfPresents = Mathf.RoundToInt(numberOfPresents * 1.5f);
         if (level > 5) { level = 4; }
 
         rotationSpeed *= 1.1f;
@@ -80,6 +79,7 @@ public class PresentField : MonoBehaviour
     public void MultiplyPresents()
     {
         numberOfPresents += (int)Mathf.Round(numberOfPresents * 50 / 100) + 1;
+        if(numberOfPresents > 40) { numberOfPresents = 40; }
         CalculateOptimalRadius();
         ArrangeObjects();
     }
@@ -147,9 +147,10 @@ public class PresentField : MonoBehaviour
     {
         if (numberOfPresents < 15) { virtualCamera.m_Lens.OrthographicSize = 1.9f; }
         if (numberOfPresents > 15) { virtualCamera.m_Lens.OrthographicSize = 2.5f; }
-        if (numberOfPresents > 30) { virtualCamera.m_Lens.OrthographicSize = 3.5f; }
-        if (level == 5 && numberOfPresents > 8) { virtualCamera.m_Lens.OrthographicSize = 3.5f; }
-        if (level == 5 && numberOfPresents > 15) { virtualCamera.m_Lens.OrthographicSize = 4f; }
+        if (numberOfPresents > 20) { virtualCamera.m_Lens.OrthographicSize = 3.7f; }
+        if (numberOfPresents > 30) { virtualCamera.m_Lens.OrthographicSize = 4.2f; }
+        if (level == 5 && numberOfPresents > 8) { virtualCamera.m_Lens.OrthographicSize = 3.9f; }
+        if (level == 5 && numberOfPresents > 15) { virtualCamera.m_Lens.OrthographicSize = 4.2f; }
         if (level == 5 && numberOfPresents > 25) { virtualCamera.m_Lens.OrthographicSize = 5.5f; }
     }
 
