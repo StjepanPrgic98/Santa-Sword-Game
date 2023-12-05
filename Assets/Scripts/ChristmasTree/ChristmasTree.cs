@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ChristmasTree : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] TreePowerSuply treePowerSuply;
     [SerializeField] GameObject nukeExplosion;
     [SerializeField] AudioPlayer audioPlayer;
     [SerializeField] Slider hpSlider;
@@ -38,8 +39,9 @@ public class ChristmasTree : MonoBehaviour
     public void ReduceHp()
     {
         if(hp <= 0) { DestroyChristmasTree(); return; }
- 
-        hp--;
+
+        Debug.Log(treePowerSuply.LevelOfTreeDamageIncrease);
+        hp -= 1 * treePowerSuply.LevelOfTreeDamageIncrease;
         UpdateHpDisplays();
     }
     public void IncreaseTreeHp(int treeRepairAmount)
