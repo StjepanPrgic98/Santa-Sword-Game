@@ -69,3 +69,6 @@ TagManager:
   - name: ItemsInLevel
     uniqueID: 417419679
     locked: 0
+  - name: Pole
+    uniqueID: 2837263931
+    locked: 0

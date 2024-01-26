@@ -65,6 +65,7 @@ public class PresentField : MonoBehaviour
         level--;
         if (level > 5) { level = 4; }
 
+        numberOfPresents -= numberOfPresents * 50 / 100;
         rotationSpeed *= 1.1f;
         ArrangeObjects();
         WritePowerupText("- Level!");

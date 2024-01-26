@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Variables")]
     [SerializeField] float moveSpeed;
 
-
     Vector2 moveInput;
 
     void Update()
